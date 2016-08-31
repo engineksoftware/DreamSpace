@@ -2,6 +2,8 @@ package enginek.dreamspace;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -20,6 +22,14 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Handler uiHandler = new Handler() {
+          @Override
+            public void handleMessage(Message msg){
+
+
+          }
+        };
 
     }
 
