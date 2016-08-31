@@ -33,18 +33,19 @@ public class MainActivity extends Activity{
         ADD_LARGE_YELLOW, ADD_LARGE_BLUE, ADD_LARGE_WHITE, ADD_LARGE_ORANGE
     }
 
+    final Handler uiHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg){
+
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Handler uiHandler = new Handler() {
-          @Override
-            public void handleMessage(Message msg){
-
-
-          }
-        };
 
     }
 
@@ -60,15 +61,18 @@ public class MainActivity extends Activity{
 
                 /*
                     Constant values for the different sizes, and colors. Only being used for better readability.
+                    The numbers are added together to figure out which message to send.
                  */
-                final int LARGE = 0;
-                final int MED = 1;
-                final int SMALL = 2;
+                final int LARGE = 8;
+                final int MED = 4;
+                final int SMALL = 0;
 
-                final int WHITE = 0;
+                final int YELLOW = 0;
                 final int BLUE = 1;
-                final int ORANGE = 2;
-                final int YELLOW = 3;
+                final int WHITE = 2;
+                final int ORANGE = 3;
+
+                Messages messages[] = Messages.values();
 
                 double sizeRandom  = Math.random();
                 double colorRandom = Math.random();
@@ -109,6 +113,11 @@ public class MainActivity extends Activity{
                 }else{
                     color = YELLOW;
                 }
+
+                Message msg = uiHandler.obtainMessage();
+                msg.what = messages[size+color].ordinal();
+                uiHandler.sendMessage(msg);
+
 
             }
         });
