@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#561570</color>
     <color name="black">#000000</color>
+    <color name="background">#333333</color>
     <color name="mainPurple">#7c1fa1</color>
+    <color name="darkPurple">#561570</color>
+    <color name="white">#ffffff</color>
 </resources>
