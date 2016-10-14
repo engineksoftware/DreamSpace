@@ -3,6 +3,7 @@ package enginek.dreamspace;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ public class DreamsFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dreams_fragment, container, false);
 
+
         //Gets dreams from db
         db = new DatabaseHandler(view.getContext());
         dbList = db.getDreams();
@@ -39,6 +41,13 @@ public class DreamsFragment extends ListFragment {
 
         noDreams = (TextView) view.findViewById(R.id.nodreamstext);
         context = view.getContext();
+
+        getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            public void onBackStackChanged() {
+                //Might put stuff in here
+            }
+        });
+
         return view;
     }
 
@@ -82,7 +91,6 @@ public class DreamsFragment extends ListFragment {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.framelayout, frag);
         transaction.addToBackStack(null);
-        MainActivity.hideButtons();
         transaction.commit();
 
 

@@ -18,6 +18,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <ImageButton
+            android:layout_marginRight="@dimen/dream_text_margin"
+            android:layout_toLeftOf="@+id/settingsbutton"
+            android:id="@+id/searchbutton"
+            android:background="@color/mainPurple"
+            android:scaleType="fitCenter"
+            android:layout_centerVertical="true"
+            android:src="@drawable/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:layout_marginRight="@dimen/dream_text_margin"
+            android:id="@+id/settingsbutton"
+            android:background="@color/mainPurple"
+            android:scaleType="fitCenter"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/settings_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
     </RelativeLayout>
 
     <RelativeLayout

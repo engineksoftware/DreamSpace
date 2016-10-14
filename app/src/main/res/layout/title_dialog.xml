@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:background="@color/background">
+    android:background="@color/darkPurple">
 
     <RelativeLayout
-        android:background="@color/mainPurple"
+        android:background="@color/darkPurple"
         android:id="@+id/layoutTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -24,7 +24,7 @@
         android:layout_below="@+id/layoutTitle"
         android:id="@+id/dreamTitle"
         android:textColorHint="@color/white"
-        android:hint="Make up a title"
+        android:hint="Make up a title."
         android:textColor="@color/white"
         android:ems="10"
         android:layout_width="match_parent"

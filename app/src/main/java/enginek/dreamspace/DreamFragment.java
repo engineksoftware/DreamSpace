@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.KeyEventCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ public class DreamFragment extends Fragment {
     DatabaseHandler db;
     View view;
     Bundle args;
+    boolean editing;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class DreamFragment extends Fragment {
 
         args = getArguments();
         db = new DatabaseHandler(view.getContext());
+        editing = false;
 
         title = (TextView) view.findViewById(R.id.dreamtitle);
         time = (TextView) view.findViewById(R.id.dreamtime);
@@ -52,7 +56,47 @@ public class DreamFragment extends Fragment {
             }
         });
 
+        edit = (Button) view.findViewById(R.id.editdream);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditFragment frag = new EditFragment();
+                editing = true;
+
+                Bundle nArgs = new Bundle();
+                nArgs.putInt("id", args.getInt("id"));
+                nArgs.putString("title", args.getString("title"));
+                nArgs.putString("dream", args.getString("dream"));
+                nArgs.putString("time", args.getString("time"));
+                nArgs.putString("date", args.getString("date"));
+                frag.setArguments(args);
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.framelayout, frag);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            public void onBackStackChanged() {
+                //Gets the updated dream, and resets the title and dream if the dream was edited.
+                if(editing) {
+                    editing = false;
+                    Dream d = db.getDream(args.getInt("id"));
+                    title.setText(d.getTitle());
+                    dream.setText(d.getDream());
+
+                }
+
+            }
+        });
+
         return view;
+
+
+
     }
 
     public void createAlert(){
@@ -75,7 +119,6 @@ public class DreamFragment extends Fragment {
 
                 //Closes the dialog, pops back to the last fragment, and unhides the buttons
                 dialog.dismiss();
-                MainActivity.unhideButtons();
                 getFragmentManager().popBackStack();
 
             }

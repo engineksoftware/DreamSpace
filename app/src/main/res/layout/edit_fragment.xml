@@ -18,9 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <EditText
                 android:maxLines="1"
-                android:id="@+id/dreamtitle"
+                android:id="@+id/edittitle"
                 android:fontFamily="sans-serif-light"
                 android:textSize="@dimen/text_size_large"
                 android:textColor="@color/white"
@@ -57,10 +57,12 @@
 
     </RelativeLayout>
 
-    <TextView
+    <EditText
+        android:background="@android:color/transparent"
+        android:gravity="top|left"
+        android:inputType="textMultiLine"
         android:layout_above="@+id/dreamButtons"
-        android:textIsSelectable="true"
-        android:id="@+id/yourdream"
+        android:id="@+id/editdream"
         android:layout_marginBottom="@dimen/dream_text_margin"
         android:layout_marginTop="@dimen/dream_text_margin"
         android:layout_marginRight="@dimen/dream_text_margin"
@@ -71,7 +73,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_medium"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:weightSum="2"
@@ -82,26 +84,28 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/editdream"
+            android:id="@+id/savedit"
             android:textAllCaps="false"
             android:fontFamily="sans-serif-light"
             android:background="@drawable/left_button"
-            android:text="Edit"
+            android:text="Save"
             android:textColor="@color/white"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/deletedream"
+            android:id="@+id/closeedit"
             android:textAllCaps="false"
             android:fontFamily="sans-serif-light"
             android:background="@drawable/right_button"
-            android:text="Delete"
+            android:text="Close"
             android:textColor="@color/white"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+
 
 </RelativeLayout>

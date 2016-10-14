@@ -43,17 +43,6 @@ public class MainActivity extends FragmentActivity{
 
     }
 
-    @Override
-    public void onBackPressed(){
-        //Shows buttons once you get back to the main screen
-        if(getFragmentManager().getBackStackEntryCount() == 0) {
-            super.onBackPressed();
-            unhideButtons();
-        }else{
-            getFragmentManager().popBackStack();
-        }
-    }
-
     public void addDream(View view){
         add.setBackgroundResource(R.drawable.purple_button_pressed);
         dreams.setBackgroundResource(R.drawable.purple_button);
@@ -83,13 +72,5 @@ public class MainActivity extends FragmentActivity{
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.framelayout, conFrag);
         transaction.commit();
-    }
-
-    public static void hideButtons(){
-        layout.setVisibility(View.GONE);
-    }
-
-    public static void unhideButtons(){
-        layout.setVisibility(View.VISIBLE);
     }
 }
