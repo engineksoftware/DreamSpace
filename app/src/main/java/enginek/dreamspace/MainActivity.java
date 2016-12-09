@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity{
 
-    Button add, dreams,connections;
+    static Button add, dreams,connections;
     AddFragment addFrag;
     DreamsFragment dreFrag;
     ConFragment conFrag;
@@ -44,33 +44,45 @@ public class MainActivity extends FragmentActivity{
     }
 
     public void addDream(View view){
-        add.setBackgroundResource(R.drawable.purple_button_pressed);
-        dreams.setBackgroundResource(R.drawable.purple_button);
-        connections. setBackgroundResource(R.drawable.purple_button);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.framelayout, addFrag);
+        transaction.addToBackStack(null);
         transaction.commit();
 
+    }
+
+    public static void addDreamClicked(){
+        add.setBackgroundResource(R.drawable.purple_button_pressed);
+        dreams.setBackgroundResource(R.drawable.purple_button);
+        connections. setBackgroundResource(R.drawable.purple_button);
     }
 
     public void dreams(View view){
-        dreams.setBackgroundResource(R.drawable.purple_button_pressed);
-        add.setBackgroundResource(R.drawable.purple_button);
-        connections. setBackgroundResource(R.drawable.purple_button);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.framelayout, dreFrag);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
+    public static void dreamsClicked(){
+        dreams.setBackgroundResource(R.drawable.purple_button_pressed);
+        add.setBackgroundResource(R.drawable.purple_button);
+        connections. setBackgroundResource(R.drawable.purple_button);
+    }
+
     public void connections(View view){
-        connections.setBackgroundResource(R.drawable.purple_button_pressed);
-        dreams.setBackgroundResource(R.drawable.purple_button);
-        add. setBackgroundResource(R.drawable.purple_button);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.framelayout, conFrag);
+        transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public static void connectionsClicked(){
+        connections.setBackgroundResource(R.drawable.purple_button_pressed);
+        dreams.setBackgroundResource(R.drawable.purple_button);
+        add. setBackgroundResource(R.drawable.purple_button);
     }
 }

@@ -8,15 +8,35 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/topbar_size">
 
-        <TextView
-            android:fontFamily="sans-serif-light"
-            android:layout_marginLeft="@dimen/text_margin"
+        <ViewSwitcher
+            android:id="@+id/viewSwitcher"
+            android:layout_toLeftOf="@+id/searchbutton"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_size_large"
-            android:textColor="@color/white"
-            android:text="Your Dreams"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:textSize="@dimen/text_size_large"
+                android:textColor="@color/white"
+                android:text="Your Dreams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/searchParams"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search by title."
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                />
+
+        </ViewSwitcher>
 
         <ImageButton
             android:layout_marginRight="@dimen/dream_text_margin"

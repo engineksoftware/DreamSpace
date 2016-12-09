@@ -29,6 +29,8 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.add_fragment, container, false);
 
+        MainActivity.addDreamClicked();
+
         Button button = (Button) view.findViewById(R.id.savedream);
         text = (EditText) view.findViewById(R.id.dreamtext);
         db = new DatabaseHandler(view.getContext());
