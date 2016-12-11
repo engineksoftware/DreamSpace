@@ -26,6 +26,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asdasdad"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_below="@+id/test"
+            android:id="@+id/test2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asdasdad"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/test3"
+            android:layout_below="@+id/test2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asdasdad"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/test4"
+            android:layout_below="@+id/test3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asdasdad"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/test5"
+            android:layout_below="@+id/test4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\nasdasdad"
+            android:textColor="@color/white"/>
+
 
     </RelativeLayout>
 

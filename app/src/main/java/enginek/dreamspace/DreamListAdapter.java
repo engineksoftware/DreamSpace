@@ -79,6 +79,9 @@ public class DreamListAdapter extends ArrayAdapter implements Filterable{
     }
 
     public Filter getFilter(){
+        if(filter == null)
+            filter = new DreamFilter();
+
         return filter;
     }
 

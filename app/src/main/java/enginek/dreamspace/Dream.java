@@ -6,18 +6,27 @@ package enginek.dreamspace;
 public class Dream {
 
     int id;
-    String title, dream, time, date;
+    String title, dream, time, date, vector;
 
     public Dream(){
 
     }
 
-    public Dream(int id, String title, String dream, String time, String date){
+    public Dream(int id, String title, String dream, String time, String date, String vector){
         this.id = id;
         this.title = title;
         this.dream = dream;
         this.time = time;
         this.date = date;
+        this.vector = vector;
+    }
+
+    public Dream(String title,String dream, String time, String date, String vector){
+        this.title = title;
+        this.dream = dream;
+        this.time = time;
+        this.date = date;
+        this.vector = vector;
     }
 
     public Dream(String title,String dream, String time, String date){
@@ -61,6 +70,14 @@ public class Dream {
 
     public void setDate(String date){
         this.date = date;
+    }
+
+    public String getVector(){
+        return this.vector;
+    }
+
+    public void setVector(String vector){
+        this.vector = vector;
     }
 
 }
