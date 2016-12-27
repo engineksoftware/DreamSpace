@@ -79,21 +79,25 @@ public class DreamFragment extends Fragment {
             }
         });
 
-        getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            public void onBackStackChanged() {
-                //Gets the updated dream, and resets the title and dream if the dream was edited.
-                if(editing) {
-                    editing = false;
-                    Dream d = db.getDream(args.getInt("id"));
-                    title.setText(d.getTitle());
-                    dream.setText(d.getDream());
-
-                }
-
-            }
-        });
-
         return view;
+
+
+
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        //Gets the updated dream, and resets the title and dream if the dream was edited.
+        Dream d = db.getDream(args.getInt("id"));
+        title.setText(d.getTitle());
+        dream.setText(d.getDream());
 
 
 

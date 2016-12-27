@@ -33,6 +33,8 @@ public class EditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.edit_fragment, container, false);
 
+        MainActivity.dreamsClicked();
+
         args = getArguments();
         db = new DatabaseHandler(view.getContext());
 

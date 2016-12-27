@@ -83,11 +83,11 @@ public class DreamsFragment extends ListFragment {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewSwitcher.showNext();
 
                 if(dbList.size() == 0){
                     Toast.makeText(context, "No dreams to search for. ", Toast.LENGTH_SHORT).show();
                 }else{
+                    viewSwitcher.showNext();
                 }
             }
         });
@@ -114,6 +114,12 @@ public class DreamsFragment extends ListFragment {
             noDreams.setVisibility(View.VISIBLE);
         }
 
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
 
     }
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey">
+
+    <TextView
+        android:id="@+id/dreamOne"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit ="marquee_forever"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/andText"
+        android:layout_marginBottom="@dimen/dream_text_margin"
+        android:layout_marginTop="@dimen/dream_text_margin"
+        android:layout_marginLeft="@dimen/dream_text_margin"
+        android:textColor="@color/white"
+        android:text="Dream One"
+        android:textSize="@dimen/text_size_large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginRight="@dimen/dream_text_margin"
+        android:layout_marginLeft="@dimen/dream_text_margin"
+        android:id="@+id/andText"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small"
+        android:text="and"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+        android:id="@+id/dreamTwo"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit ="marquee_forever"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/andText"
+        android:layout_marginBottom="@dimen/dream_text_margin"
+        android:layout_marginTop="@dimen/dream_text_margin"
+        android:layout_marginRight="@dimen/dream_text_margin"
+        android:textColor="@color/white"
+        android:text="Dream Two"
+        android:textSize="@dimen/text_size_large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
