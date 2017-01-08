@@ -44,12 +44,12 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:onClick="connections"
-            android:id="@+id/connectionsButton"
+            android:onClick="statistics"
+            android:id="@+id/statisticsButton"
             android:textAllCaps="false"
             android:fontFamily="sans-serif-light"
             android:background="@drawable/purple_button_pressed"
-            android:text="Connections"
+            android:text="Statistics"
             android:textColor="@color/white"
             android:layout_weight="1"
             android:layout_width="wrap_content"

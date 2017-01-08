@@ -2,26 +2,15 @@ package enginek.dreamspace;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.Vector;
 
 /**
  * Created by Joseph on 10/7/2016.
@@ -39,7 +28,7 @@ public class ConFragment extends ListFragment {
         View view = inflater.inflate(R.layout.con_fragment, container, false);
         context = view.getContext();
 
-        MainActivity.connectionsClicked();
+        MainActivity.statisticsClicked();
 
         db = new DatabaseHandler(view.getContext());
         connections = db.getConnections();
@@ -78,6 +67,7 @@ public class ConFragment extends ListFragment {
         ConViewFragment frag = new ConViewFragment();
 
         Bundle args = new Bundle();
+        args.putInt("connection_id", connection.getConnection_id());
         args.putInt("dreamA_id", connection.getDreamA_id());
         args.putInt("dreamB_id", connection.getDreamB_id());
         frag.setArguments(args);

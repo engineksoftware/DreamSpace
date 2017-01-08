@@ -5,6 +5,7 @@
     android:background="@color/mainPurple">
 
     <TextView
+        android:fontFamily="sans-serif-light"
         android:id="@+id/dreamOne"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit ="marquee_forever"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:fontFamily="sans-serif-light"
         android:layout_marginRight="@dimen/dream_text_margin"
         android:layout_marginLeft="@dimen/dream_text_margin"
         android:id="@+id/andText"
@@ -33,6 +35,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:fontFamily="sans-serif-light"
         android:gravity="right"
         android:layout_alignParentRight="true"
         android:id="@+id/dreamTwo"

@@ -3,6 +3,7 @@ package enginek.dreamspace;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -51,8 +52,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final double SIMILARITY_PERCENTAGE = 60.0;
 
+    private static Context context;
+
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     //Creates the tables
@@ -95,6 +99,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_DREAMS,null,values);
 
         compareToOtherDreamsOnSave(getLastAddedDream());
+        checkStatistics(dream.getDate(),dream.getDream());
+
     }
 
     public void addConnection(Connection connection){
@@ -217,7 +223,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String countQuery = "SELECT * FROM " + TABLE_DREAMS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor= db.rawQuery(countQuery,null);
-        cursor.close();
 
         return cursor.getCount();
     }
@@ -226,7 +231,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String countQuery = "SELECT * FROM " + TABLE_CONNECTIONS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor= db.rawQuery(countQuery,null);
-        cursor.close();
 
         return cursor.getCount();
     }
@@ -266,6 +270,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_DREAMS, KEY_ID + " = ?",
                 new String[] {String.valueOf(dream.getId())});
 
+        removeConnectionsThatContainDreamId(dream.getId()); //Deletes any connections that contain that id.
+
+        SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.statistics_data), context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = pref.edit();
+
+        int numberOfDreamsTotal = getDreamCount();//Gets the total number of dreams
+        if(numberOfDreamsTotal == 0){//Checks if all dreams have been deleted.
+
+            //If so, all of the counter values get set to zero, and it sets the first dream added to zero which means that no dreams have been added yet.
+            prefEditor.putInt(context.getString(R.string.first_dream_added), 0);
+            prefEditor.putInt(context.getString(R.string.current_day_counter), 0);
+            prefEditor.putInt(context.getString(R.string.week_counter), 0);
+            prefEditor.putInt(context.getString(R.string.month_counter), 0);
+            prefEditor.putInt(context.getString(R.string.year_counter), 0);
+            prefEditor.putInt(context.getString(R.string.total_amount_of_dreams), 0);
+            prefEditor.putInt(context.getString(R.string.week_average), 0);
+            prefEditor.putInt(context.getString(R.string.month_average), 0);
+            prefEditor.putInt(context.getString(R.string.year_average), 0);
+            prefEditor.putInt(context.getString(R.string.most_in_a_week), 0);
+            prefEditor.putInt(context.getString(R.string.most_in_a_month), 0);
+            prefEditor.putInt(context.getString(R.string.most_in_a_year), 0);
+            prefEditor.putInt(context.getString(R.string.week_dream_counter), 0);
+            prefEditor.putInt(context.getString(R.string.month_dream_counter), 0);
+            prefEditor.putInt(context.getString(R.string.year_dream_counter), 0);
+            prefEditor.commit();
+        }else{
+            int counterValue = pref.getInt(context.getString(R.string.current_day_counter), 0); //Gets the current day counter value
+            int totalDreams = pref.getInt(context.getString(R.string.total_amount_of_dreams), 0); //Gets the total amount of dreams
+            counterValue--; //Subtracts one from that value
+            totalDreams--; //Subtract from total amount of dreams.
+            prefEditor.putInt(context.getString(R.string.total_amount_of_dreams), totalDreams); //update the total amount of dreams
+            prefEditor.putInt(context.getString(R.string.current_day_counter), counterValue); //Sets the current day counter to the new value.
+            prefEditor.commit();
+        }
+
+
+
     }
 
     public void deleteConnection(Connection connection){
@@ -289,6 +330,47 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 deleteConnection(newConnections.get(x));
             }
         }
+    }
+
+    //Starts the statistics data once a dream has been added, and adds to the dream counter for that day.
+    private void checkStatistics(String date, String dream){
+        SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.statistics_data), context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = pref.edit();
+        String year, month;
+        year = date.substring(0,4);
+        month = date.substring(5,7);
+
+        //This makes sure that it only starts counting statistics once you've added a dream.
+        //It checks if the first dream has been added, and if not it sets the current month and year.
+        int firstDreamValue = pref.getInt(context.getString(R.string.first_dream_added), 0);
+        if(firstDreamValue == 0){
+            prefEditor.putInt(context.getString(R.string.first_dream_added),1);
+            prefEditor.putString(context.getString(R.string.current_month),month);
+            prefEditor.putString(context.getString(R.string.current_year),year);
+            prefEditor.putInt(context.getString(R.string.month_counter),0);
+            prefEditor.putInt(context.getString(R.string.year_counter),0);
+            prefEditor.commit();
+
+        }
+
+        //Adds one to the current day counter, and the total amount of dreams.
+        //The DateReceiver will reset it back to zero once the day has changed.
+        int oldDayCounterValue = pref.getInt(context.getString(R.string.current_day_counter), 0);
+        int newDayCounterValue = oldDayCounterValue + 1;
+        int totalDreams = pref.getInt(context.getString(R.string.total_amount_of_dreams), 0);
+        totalDreams++;
+        prefEditor.putInt(context.getString(R.string.total_amount_of_dreams), totalDreams);
+        prefEditor.putInt(context.getString(R.string.current_day_counter), newDayCounterValue);
+        prefEditor.commit();
+
+
+
+    }
+
+    //Gets the word count from the most recent dream, and uses that value to find the average word count
+    //and checks to see if it has the most words.
+    private void compareWordCounts(){
+
     }
 
     //Removes anything that's not a letter, and splits the string by spaces into an array.

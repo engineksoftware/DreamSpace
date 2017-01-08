@@ -121,6 +121,14 @@ public class DreamsFragment extends ListFragment {
     public void onResume(){
         super.onResume();
 
+        //Clears the adapter when there aren't any dreams left.
+        if(db.getDreamCount() == 0){
+            if(adapter!=null) {
+                adapter.clear();
+                adapter.notifyDataSetChanged();
+            }
+        }
+
     }
 
     @Override
@@ -139,6 +147,8 @@ public class DreamsFragment extends ListFragment {
         frag.setArguments(args);
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        transaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
         transaction.replace(R.id.framelayout, frag);
         transaction.addToBackStack(null);
         transaction.commit();

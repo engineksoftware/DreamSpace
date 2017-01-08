@@ -4,5 +4,27 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- These are the keys for the statistics shared preferences-->
+    <string name="statistics_data">Statistics Data</string>
+    <string name="first_dream_added">First dream</string>
+    <string name="total_amount_of_dreams">Total Amount Of Dreams</string>
+    <string name="current_month">Current Month</string>
+    <string name="current_year">Current Year</string>
+    <string name="current_day_counter">Current Day Counter</string>
+    <string name="week_day_counter">Week Day Counter</string>
+    <string name="week_counter">Week counter</string>
+    <string name="week_average">Week average</string>
+    <string name="month_counter">Month counter</string>
+    <string name="month_average">Month average</string>
+    <string name="year_counter">Year counter</string>
+    <string name="year_average">Year average</string>
+    <string name="most_in_a_week">Most in a week</string>
+    <string name="most_in_a_month">Most in a month</string>
+    <string name="most_in_a_year">Most in a year</string>
+    <string name="week_dream_counter">Week dream counter</string>
+    <string name="month_dream_counter">Month dream counter</string>
+    <string name="year_dream_counter">Year dream counter</string>
+
+
     <string name="action_settings">Settings</string>
 </resources>

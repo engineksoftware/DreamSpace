@@ -21,6 +21,7 @@
     </RelativeLayout>
 
     <EditText
+        android:inputType="textCapSentences"
         android:layout_below="@+id/layoutTitle"
         android:id="@+id/dreamTitle"
         android:textColorHint="@color/white"

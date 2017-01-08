@@ -41,23 +41,21 @@ public class DreamListAdapter extends ArrayAdapter implements Filterable{
     public View getView(int position, View convertView, ViewGroup parent){
         ViewHolder holder = null;
         DreamListItem item = (DreamListItem) getItem(position);
-        View view;
 
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         if(convertView == null){
-            view = inflater.inflate(R.layout.dream_list_item, null);
+            convertView = inflater.inflate(R.layout.dream_list_item, null);
 
             holder = new ViewHolder();
-            holder.dreamTitle = (TextView) view.findViewById(R.id.dreamTitle);
-            holder.dreamTime = (TextView) view.findViewById(R.id.dreamTime);
-            holder.dreamDate = (TextView) view.findViewById(R.id.dreamDate);
+            holder.dreamTitle = (TextView) convertView.findViewById(R.id.dreamTitle);
+            holder.dreamTime = (TextView) convertView.findViewById(R.id.dreamTime);
+            holder.dreamDate = (TextView) convertView.findViewById(R.id.dreamDate);
 
-            view.setTag(holder);
+            convertView.setTag(holder);
         }else{
-            view = convertView;
-            holder = (ViewHolder) view.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
 
         //Uses the filtered results because this list is searchable.
@@ -65,7 +63,7 @@ public class DreamListAdapter extends ArrayAdapter implements Filterable{
         holder.dreamTime.setText(dreams.get(position).getTime());
         holder.dreamDate.setText(dreams.get(position).getDate());
 
-        return view;
+        return convertView;
 
 
     }

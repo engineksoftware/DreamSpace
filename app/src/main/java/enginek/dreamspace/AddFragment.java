@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +57,7 @@ public class AddFragment extends Fragment {
         //Creates dialog using custom layout
         final Dialog dialog = new Dialog(view.getContext());
         dialog.setContentView(R.layout.title_dialog);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         dialog.setCancelable(true);
 
         final EditText input = (EditText) dialog.findViewById(R.id.dreamTitle);

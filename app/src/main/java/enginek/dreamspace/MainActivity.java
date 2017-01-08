@@ -6,21 +6,23 @@
 
 package enginek.dreamspace;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity{
 
-    static Button add, dreams,connections;
+    private static final String ADD_TAG = "ADD FRAGMENT";
+    private static final String DREAM_TAG = "DREAM FRAGMENT";
+    private static final String STAT_TAG = "STAT FRAGMENT";
+
+    static Button add, dreams,statistics;
     AddFragment addFrag;
     DreamsFragment dreFrag;
-    ConFragment conFrag;
+    StatisticsFragment statFrag;
     static LinearLayout layout;
 
     @Override
@@ -30,13 +32,13 @@ public class MainActivity extends FragmentActivity{
 
         addFrag = new AddFragment();
         dreFrag = new DreamsFragment();
-        conFrag = new ConFragment();
+        statFrag = new StatisticsFragment();
 
         getSupportFragmentManager().beginTransaction().add(R.id.framelayout, addFrag).commit();
 
         add = (Button) findViewById(R.id.addButton);
         dreams = (Button) findViewById(R.id.dreamsButton);
-        connections = (Button) findViewById(R.id.connectionsButton);
+        statistics = (Button) findViewById(R.id.statisticsButton);
         layout = (LinearLayout) findViewById(R.id.mainbuttons);
 
         addDream(add);
@@ -46,7 +48,8 @@ public class MainActivity extends FragmentActivity{
     public void addDream(View view){
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.framelayout, addFrag);
+        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+        transaction.replace(R.id.framelayout, addFrag, ADD_TAG);
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -55,13 +58,23 @@ public class MainActivity extends FragmentActivity{
     public static void addDreamClicked(){
         add.setBackgroundResource(R.drawable.purple_button_pressed);
         dreams.setBackgroundResource(R.drawable.purple_button);
-        connections. setBackgroundResource(R.drawable.purple_button);
+        statistics. setBackgroundResource(R.drawable.purple_button);
     }
 
     public void dreams(View view){
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.framelayout, dreFrag);
+
+        //Checks to see which frag is open before choosing the animation.
+        //Used to make sure this frag looks like its sliding in from the correct side.
+        if(getSupportFragmentManager().findFragmentByTag(ADD_TAG) != null && getSupportFragmentManager().findFragmentByTag(ADD_TAG).isVisible()){
+            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+        if(getSupportFragmentManager().findFragmentByTag(STAT_TAG) != null && getSupportFragmentManager().findFragmentByTag(STAT_TAG).isVisible()){
+            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+
+        transaction.replace(R.id.framelayout, dreFrag, DREAM_TAG);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -69,19 +82,20 @@ public class MainActivity extends FragmentActivity{
     public static void dreamsClicked(){
         dreams.setBackgroundResource(R.drawable.purple_button_pressed);
         add.setBackgroundResource(R.drawable.purple_button);
-        connections. setBackgroundResource(R.drawable.purple_button);
+        statistics. setBackgroundResource(R.drawable.purple_button);
     }
 
-    public void connections(View view){
+    public void statistics(View view){
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.framelayout, conFrag);
+        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        transaction.replace(R.id.framelayout, statFrag, STAT_TAG);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    public static void connectionsClicked(){
-        connections.setBackgroundResource(R.drawable.purple_button_pressed);
+    public static void statisticsClicked(){
+        statistics.setBackgroundResource(R.drawable.purple_button_pressed);
         dreams.setBackgroundResource(R.drawable.purple_button);
         add. setBackgroundResource(R.drawable.purple_button);
     }
