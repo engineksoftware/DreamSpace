@@ -3,11 +3,14 @@ package enginek.dreamspace;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -20,6 +23,7 @@ public class StatisticsFragment extends Fragment {
     SharedPreferences pref;
 
     TextView numDreams, avgPerWeek, avgPerMonth, avgPerYear, mostInOneWeek, mostInOneMonth, mostInOneYear;
+    ImageButton connectionButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +49,19 @@ public class StatisticsFragment extends Fragment {
         mostInOneWeek.setText(String.valueOf(pref.getInt(context.getString(R.string.most_in_a_week), 0)));
         mostInOneMonth.setText(String.valueOf(pref.getInt(context.getString(R.string.most_in_a_month), 0)));
         mostInOneYear.setText(String.valueOf(pref.getInt(context.getString(R.string.most_in_a_year), 0)));
+
+        connectionButton = (ImageButton) view.findViewById(R.id.connectionButton);
+        connectionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConFragment frag = new ConFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
+                transaction.replace(R.id.framelayout, frag, context.getString(R.string.con_fragment));
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         return view;
     }

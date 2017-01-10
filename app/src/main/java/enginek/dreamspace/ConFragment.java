@@ -60,6 +60,18 @@ public class ConFragment extends ListFragment {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+
+        if(db.getConnectionsCount() == 0){
+            if(adapter!=null) {
+                adapter.clear();
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
@@ -70,9 +82,11 @@ public class ConFragment extends ListFragment {
         args.putInt("connection_id", connection.getConnection_id());
         args.putInt("dreamA_id", connection.getDreamA_id());
         args.putInt("dreamB_id", connection.getDreamB_id());
+        args.putInt("accepted", connection.getAccepted());
         frag.setArguments(args);
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
         transaction.replace(R.id.framelayout, frag);
         transaction.addToBackStack(null);
         transaction.commit();

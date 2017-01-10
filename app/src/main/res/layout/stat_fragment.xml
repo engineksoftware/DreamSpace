@@ -18,6 +18,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <ImageButton
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/connectionButton"
+            android:background="@color/mainPurple"
+            android:scaleType="fitCenter"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/connection_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
     </RelativeLayout>
 
     <ScrollView

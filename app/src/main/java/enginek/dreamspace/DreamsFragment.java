@@ -2,7 +2,9 @@ package enginek.dreamspace;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,7 +42,7 @@ public class DreamsFragment extends ListFragment {
     Context context;
     TextView noDreams;
     View view;
-    ImageButton search;
+    ImageButton search, delete;
     ViewSwitcher viewSwitcher;
     EditText searchParams;
     static DreamListAdapter adapter;
@@ -89,6 +92,14 @@ public class DreamsFragment extends ListFragment {
                 }else{
                     viewSwitcher.showNext();
                 }
+            }
+        });
+
+        delete = (ImageButton) view.findViewById(R.id.deleteButton);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDeleteAlert();
             }
         });
 
@@ -154,5 +165,72 @@ public class DreamsFragment extends ListFragment {
         transaction.commit();
 
 
+    }
+
+    public void createDeleteAlert(){
+        //Creates dialog using custom layout
+        final Dialog dialog = new Dialog(view.getContext());
+        dialog.setContentView(R.layout.delete_all_dialog);
+        dialog.setCancelable(true);
+
+        Button delete = (Button) dialog.findViewById(R.id.deletedream);
+        Button close = (Button) dialog.findViewById(R.id.closedialog);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createCheckAlert();
+                dialog.dismiss();
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    public void createCheckAlert(){
+        //Creates dialog using custom layout
+        final Dialog dialog = new Dialog(view.getContext());
+        dialog.setContentView(R.layout.delete_all_check_dialog);
+        dialog.setCancelable(true);
+
+        Button delete = (Button) dialog.findViewById(R.id.deletedream);
+        Button close = (Button) dialog.findViewById(R.id.closedialog);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.deleteAllDreams();
+                dialog.dismiss();
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                //Clears the adapter when there aren't any dreams left.
+                if(db.getDreamCount() == 0){
+                    if(adapter!=null) {
+                        adapter.clear();
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+
+        dialog.show();
     }
 }

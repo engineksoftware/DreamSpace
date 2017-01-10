@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/black"
     android:layout_height="match_parent"
     tools:context=".AddFragment">
 
@@ -27,7 +28,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_above="@+id/buttons"
+        android:layout_above="@+id/buttonSwitcher"
         android:id="@+id/dreamsLayout"
         android:weightSum="2"
         android:orientation="vertical"
@@ -71,35 +72,63 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ViewSwitcher
+        android:id="@+id/buttonSwitcher"
         android:layout_alignParentBottom="true"
-        android:weightSum="2"
-        android:orientation="horizontal"
-        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/rejectConnection"
-            android:textAllCaps="false"
-            android:fontFamily="sans-serif-light"
-            android:background="@drawable/left_button"
-            android:text="Reject"
-            android:textColor="@color/white"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/acceptConnection"
-            android:textAllCaps="false"
-            android:fontFamily="sans-serif-light"
-            android:background="@drawable/right_button"
-            android:text="Accept"
-            android:textColor="@color/white"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/rejectConnection"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-light"
+                android:background="@drawable/left_button"
+                android:text="Reject"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/acceptConnection"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-light"
+                android:background="@drawable/right_button"
+                android:text="Accept"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:id="@+id/buttonAccepted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/deleteConnection"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-light"
+                android:background="@drawable/left_button"
+                android:text="Delete"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </ViewSwitcher>
+
+
 
 </RelativeLayout>

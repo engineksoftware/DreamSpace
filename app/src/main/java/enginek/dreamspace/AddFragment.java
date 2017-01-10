@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -32,7 +33,7 @@ public class AddFragment extends Fragment {
 
         MainActivity.addDreamClicked();
 
-        Button button = (Button) view.findViewById(R.id.savedream);
+        ImageButton button = (ImageButton) view.findViewById(R.id.savedream);
         text = (EditText) view.findViewById(R.id.dreamtext);
         db = new DatabaseHandler(view.getContext());
 

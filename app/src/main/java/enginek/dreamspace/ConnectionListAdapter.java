@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,9 +38,10 @@ public class ConnectionListAdapter extends ArrayAdapter{
                 context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         if(convertView == null){
-            if(item.getAccepted() > 0)
+            if(item.getAccepted() > 0) {
                 view = inflater.inflate(R.layout.accepted_connection_list_item, null);
-            else
+
+            }else
                 view = inflater.inflate(R.layout.possible_connection_list_item, null);
 
             holder = new ViewHolder();

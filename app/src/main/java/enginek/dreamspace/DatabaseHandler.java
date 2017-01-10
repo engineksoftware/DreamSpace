@@ -50,7 +50,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DREAM_B_ID = "dreamB_id";
     private static final String KEY_ACCEPTED = "accepted";
 
-    private static final double SIMILARITY_PERCENTAGE = 60.0;
+    private static final double SIMILARITY_PERCENTAGE = 40.0;
 
     private static Context context;
 
@@ -307,6 +307,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 
+    }
+
+    public void deleteAllDreams(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_DREAMS, null, null);
     }
 
     public void deleteConnection(Connection connection){

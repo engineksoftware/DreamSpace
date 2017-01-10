@@ -21,13 +21,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-        <Button
+        <ImageButton
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:id="@+id/savedream"
             android:textAllCaps="false"
             android:layout_alignParentRight="true"
             android:background="@drawable/purple_button"
             android:textColor="@color/white"
-            android:text="Save"
+            android:src="@drawable/save_button"
             android:fontFamily="sans-serif-light"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />

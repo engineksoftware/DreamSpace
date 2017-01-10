@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 public class MainActivity extends FragmentActivity{
@@ -19,7 +20,7 @@ public class MainActivity extends FragmentActivity{
     private static final String DREAM_TAG = "DREAM FRAGMENT";
     private static final String STAT_TAG = "STAT FRAGMENT";
 
-    static Button add, dreams,statistics;
+    static ImageButton add, dreams,statistics;
     AddFragment addFrag;
     DreamsFragment dreFrag;
     StatisticsFragment statFrag;
@@ -36,9 +37,9 @@ public class MainActivity extends FragmentActivity{
 
         getSupportFragmentManager().beginTransaction().add(R.id.framelayout, addFrag).commit();
 
-        add = (Button) findViewById(R.id.addButton);
-        dreams = (Button) findViewById(R.id.dreamsButton);
-        statistics = (Button) findViewById(R.id.statisticsButton);
+        add = (ImageButton) findViewById(R.id.addButton);
+        dreams = (ImageButton) findViewById(R.id.dreamsButton);
+        statistics = (ImageButton) findViewById(R.id.statisticsButton);
         layout = (LinearLayout) findViewById(R.id.mainbuttons);
 
         addDream(add);

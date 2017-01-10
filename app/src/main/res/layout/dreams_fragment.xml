@@ -39,26 +39,28 @@
         </ViewSwitcher>
 
         <ImageButton
-            android:layout_marginRight="@dimen/dream_text_margin"
-            android:layout_toLeftOf="@+id/settingsbutton"
+            android:paddingLeft="10dp"
+            android:paddingRight="@dimen/dream_text_margin"
+            android:layout_toLeftOf="@+id/deleteButton"
             android:id="@+id/searchbutton"
             android:background="@color/mainPurple"
             android:scaleType="fitCenter"
             android:layout_centerVertical="true"
             android:src="@drawable/search_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
         <ImageButton
-            android:layout_marginRight="@dimen/dream_text_margin"
-            android:id="@+id/settingsbutton"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/deleteButton"
             android:background="@color/mainPurple"
             android:scaleType="fitCenter"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/settings_button"
+            android:src="@drawable/delete_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
 
     </RelativeLayout>

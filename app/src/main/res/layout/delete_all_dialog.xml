@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/darkPurple"
+        android:id="@+id/layoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <TextView
+            android:layout_marginTop="@dimen/dream_text_margin"
+            android:id="@+id/sure"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@color/white"
+            android:text="Delete all dreams."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white"
+            android:text="Are you sure?"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/layoutTitle"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/deletedream"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:text="DELETE ALL"
+            android:textAllCaps="false"
+            android:background="@drawable/purple_button"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/closedialog"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:text="Close"
+            android:textAllCaps="false"
+            android:background="@drawable/purple_button"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</RelativeLayout>
