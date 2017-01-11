@@ -31,6 +31,9 @@
     <string name="stat_fragment">STAT FRAGMENT</string>
     <string name="con_fragment">CON FRAGMENT</string>
 
+    <!-- Admob IDS -->
+    <string name="app_id">ca-app-pub-2527894212887555~3238386220</string>
+    <string name="ad_unit_id">ca-app-pub-2527894212887555/7668585825</string>
 
     <string name="action_settings">Settings</string>
 </resources>

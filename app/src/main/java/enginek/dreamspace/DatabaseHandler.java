@@ -50,7 +50,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DREAM_B_ID = "dreamB_id";
     private static final String KEY_ACCEPTED = "accepted";
 
-    private static final double SIMILARITY_PERCENTAGE = 40.0;
+    private static final double SIMILARITY_PERCENTAGE = 65.0;
 
     private static Context context;
 
@@ -312,6 +312,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteAllDreams(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_DREAMS, null, null);
+
+        SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.statistics_data), context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = pref.edit();
+
+        //All of the counter values get set to zero, and it sets the first dream added to zero which means that no dreams have been added yet.
+        prefEditor.putInt(context.getString(R.string.first_dream_added), 0);
+        prefEditor.putInt(context.getString(R.string.current_day_counter), 0);
+        prefEditor.putInt(context.getString(R.string.week_counter), 0);
+        prefEditor.putInt(context.getString(R.string.month_counter), 0);
+        prefEditor.putInt(context.getString(R.string.year_counter), 0);
+        prefEditor.putInt(context.getString(R.string.total_amount_of_dreams), 0);
+        prefEditor.putInt(context.getString(R.string.week_average), 0);
+        prefEditor.putInt(context.getString(R.string.month_average), 0);
+        prefEditor.putInt(context.getString(R.string.year_average), 0);
+        prefEditor.putInt(context.getString(R.string.most_in_a_week), 0);
+        prefEditor.putInt(context.getString(R.string.most_in_a_month), 0);
+        prefEditor.putInt(context.getString(R.string.most_in_a_year), 0);
+        prefEditor.putInt(context.getString(R.string.week_dream_counter), 0);
+        prefEditor.putInt(context.getString(R.string.month_dream_counter), 0);
+        prefEditor.putInt(context.getString(R.string.year_dream_counter), 0);
+        prefEditor.commit();
     }
 
     public void deleteConnection(Connection connection){

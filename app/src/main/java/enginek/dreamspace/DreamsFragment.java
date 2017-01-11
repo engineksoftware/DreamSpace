@@ -26,6 +26,9 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,12 +49,18 @@ public class DreamsFragment extends ListFragment {
     ViewSwitcher viewSwitcher;
     EditText searchParams;
     static DreamListAdapter adapter;
+    AdView adView;
+    AdRequest request;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dreams_fragment, container, false);
 
         MainActivity.dreamsClicked();
+
+        adView = (AdView) view.findViewById(R.id.adView);
+        AdRequest request = new AdRequest.Builder().build();
+        adView.loadAd(request);
 
         //Gets dreams from db
         db = new DatabaseHandler(view.getContext());
@@ -99,7 +108,10 @@ public class DreamsFragment extends ListFragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createDeleteAlert();
+                if(db.getDreamCount() > 0)
+                    createDeleteAlert();
+                else
+                    Toast.makeText(context, "There aren't any dreams to delete.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -129,8 +141,17 @@ public class DreamsFragment extends ListFragment {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+
+        adView.pause();
+    }
+
+    @Override
     public void onResume(){
         super.onResume();
+
+        adView.resume();
 
         //Clears the adapter when there aren't any dreams left.
         if(db.getDreamCount() == 0){

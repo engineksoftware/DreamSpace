@@ -49,7 +49,7 @@ public class MainActivity extends FragmentActivity{
     public void addDream(View view){
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
         transaction.replace(R.id.framelayout, addFrag, ADD_TAG);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -69,10 +69,10 @@ public class MainActivity extends FragmentActivity{
         //Checks to see which frag is open before choosing the animation.
         //Used to make sure this frag looks like its sliding in from the correct side.
         if(getSupportFragmentManager().findFragmentByTag(ADD_TAG) != null && getSupportFragmentManager().findFragmentByTag(ADD_TAG).isVisible()){
-            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         }
         if(getSupportFragmentManager().findFragmentByTag(STAT_TAG) != null && getSupportFragmentManager().findFragmentByTag(STAT_TAG).isVisible()){
-            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
         transaction.replace(R.id.framelayout, dreFrag, DREAM_TAG);
@@ -89,7 +89,7 @@ public class MainActivity extends FragmentActivity{
     public void statistics(View view){
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         transaction.replace(R.id.framelayout, statFrag, STAT_TAG);
         transaction.addToBackStack(null);
         transaction.commit();
