@@ -58,10 +58,6 @@ public class DreamsFragment extends ListFragment {
 
         MainActivity.dreamsClicked();
 
-        adView = (AdView) view.findViewById(R.id.adView);
-        AdRequest request = new AdRequest.Builder().build();
-        adView.loadAd(request);
-
         //Gets dreams from db
         db = new DatabaseHandler(view.getContext());
         dbList = db.getDreams();
@@ -122,6 +118,10 @@ public class DreamsFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
+        adView = (AdView) view.findViewById(R.id.adView);
+        request = new AdRequest.Builder().build();
+        adView.loadAd(request);
+
         if(dbList.size() > 0){
             noDreams.setVisibility(View.GONE);
             for(int x = 0; x < dbList.size(); x++){
@@ -150,6 +150,7 @@ public class DreamsFragment extends ListFragment {
     @Override
     public void onResume(){
         super.onResume();
+
 
         adView.resume();
 
