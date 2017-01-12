@@ -69,27 +69,16 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:paddingTop="@dimen/list_padding"
+        android:paddingBottom="@dimen/list_padding"
         android:background="@color/background"
         android:layout_below="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.gms.ads.AdView
-            android:layout_marginTop="5dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="15dp"
-            android:layout_alignParentTop="true"
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/ad_unit_id">
-        </com.google.android.gms.ads.AdView>
-
         <ListView
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_below="@+id/adView"
             android:divider="@null"
             android:dividerHeight="@dimen/list_padding"
             android:id="@android:id/list"
@@ -101,7 +90,6 @@
         <TextView
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_below="@+id/adView"
             android:visibility="visible"
             android:id="@+id/nodreamstext"
             android:textSize="@dimen/text_size_medium"

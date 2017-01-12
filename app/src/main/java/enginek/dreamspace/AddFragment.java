@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -26,12 +29,18 @@ public class AddFragment extends Fragment {
     String title;
     EditText text;
     DatabaseHandler db;
+    AdView adView;
+    AdRequest request;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.add_fragment, container, false);
 
         MainActivity.addDreamClicked();
+
+        adView = (AdView) view.findViewById(R.id.adView);
+        request = new AdRequest.Builder().build();
+        adView.loadAd(request);
 
         ImageButton button = (ImageButton) view.findViewById(R.id.savedream);
         text = (EditText) view.findViewById(R.id.dreamtext);
@@ -51,6 +60,20 @@ public class AddFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        adView.pause();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        adView.resume();
     }
 
     public void createAlert(){

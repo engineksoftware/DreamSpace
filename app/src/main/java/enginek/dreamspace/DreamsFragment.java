@@ -107,7 +107,7 @@ public class DreamsFragment extends ListFragment {
                 if(db.getDreamCount() > 0)
                     createDeleteAlert();
                 else
-                    Toast.makeText(context, "There aren't any dreams to delete.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "No dreams to delete.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -117,10 +117,6 @@ public class DreamsFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-
-        adView = (AdView) view.findViewById(R.id.adView);
-        request = new AdRequest.Builder().build();
-        adView.loadAd(request);
 
         if(dbList.size() > 0){
             noDreams.setVisibility(View.GONE);
@@ -143,16 +139,11 @@ public class DreamsFragment extends ListFragment {
     @Override
     public void onPause(){
         super.onPause();
-
-        adView.pause();
     }
 
     @Override
     public void onResume(){
         super.onResume();
-
-
-        adView.resume();
 
         //Clears the adapter when there aren't any dreams left.
         if(db.getDreamCount() == 0){
