@@ -31,6 +31,7 @@ public class AddFragment extends Fragment {
     DatabaseHandler db;
     AdView adView;
     AdRequest request;
+    boolean adLoaded;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class AddFragment extends Fragment {
 
         adView = (AdView) view.findViewById(R.id.adView);
         request = new AdRequest.Builder().build();
-        adView.loadAd(request);
+        adLoaded = false;
 
         ImageButton button = (ImageButton) view.findViewById(R.id.savedream);
         text = (EditText) view.findViewById(R.id.dreamtext);
@@ -73,7 +74,14 @@ public class AddFragment extends Fragment {
     public void onResume(){
         super.onResume();
 
-        adView.resume();
+        if(adLoaded == false) {
+            adView.loadAd(request);
+            adLoaded = true;
+        }else{
+            adView.resume();
+        }
+
+
     }
 
     public void createAlert(){
