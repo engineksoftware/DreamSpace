@@ -298,10 +298,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }else{
             int counterValue = pref.getInt(context.getString(R.string.current_day_counter), 0); //Gets the current day counter value
             int totalDreams = pref.getInt(context.getString(R.string.total_amount_of_dreams), 0); //Gets the total amount of dreams
+            int weekDreamCounter = pref.getInt(context.getString(R.string.week_dream_counter), 0);
+            int monthDreamCounter = pref.getInt(context.getString(R.string.month_dream_counter), 0);
+            int yearDreamCounter = pref.getInt(context.getString(R.string.year_dream_counter), 0);
             counterValue--; //Subtracts one from that value
             totalDreams--; //Subtract from total amount of dreams.
+            weekDreamCounter--;
+            monthDreamCounter--;
+            yearDreamCounter--;
             prefEditor.putInt(context.getString(R.string.total_amount_of_dreams), totalDreams); //update the total amount of dreams
-            prefEditor.putInt(context.getString(R.string.current_day_counter), counterValue); //Sets the current day counter to the new value.
+            prefEditor.putInt(context.getString(R.string.current_day_counter), counterValue);//Sets the current day counter to the new value.
+            prefEditor.putInt(context.getString(R.string.week_dream_counter), weekDreamCounter);
+            prefEditor.putInt(context.getString(R.string.month_dream_counter), monthDreamCounter);
+            prefEditor.putInt(context.getString(R.string.year_dream_counter), yearDreamCounter);
             prefEditor.commit();
         }
 
@@ -382,11 +391,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Adds one to the current day counter, and the total amount of dreams.
         //The DateReceiver will reset it back to zero once the day has changed.
         int oldDayCounterValue = pref.getInt(context.getString(R.string.current_day_counter), 0);
-        int newDayCounterValue = oldDayCounterValue + 1;
+        int oldWeekCounterValue = pref.getInt(context.getString(R.string.week_dream_counter), 0);
+        int oldMonthCounterValue = pref.getInt(context.getString(R.string.month_dream_counter), 0);
+        int oldYearCounterValue = pref.getInt(context.getString(R.string.year_dream_counter), 0);
         int totalDreams = pref.getInt(context.getString(R.string.total_amount_of_dreams), 0);
+
         totalDreams++;
+        oldDayCounterValue++;
+        oldWeekCounterValue++;
+        oldMonthCounterValue++;
+        oldYearCounterValue++;
+
         prefEditor.putInt(context.getString(R.string.total_amount_of_dreams), totalDreams);
-        prefEditor.putInt(context.getString(R.string.current_day_counter), newDayCounterValue);
+        prefEditor.putInt(context.getString(R.string.current_day_counter), oldDayCounterValue);
+        prefEditor.putInt(context.getString(R.string.week_dream_counter), oldWeekCounterValue);
+        prefEditor.putInt(context.getString(R.string.month_dream_counter), oldMonthCounterValue);
+        prefEditor.putInt(context.getString(R.string.year_dream_counter), oldYearCounterValue);
         prefEditor.commit();
 
 

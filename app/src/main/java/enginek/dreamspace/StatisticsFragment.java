@@ -21,8 +21,9 @@ public class StatisticsFragment extends Fragment {
     DatabaseHandler handler;
     Context context;
     SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
-    TextView numDreams, avgPerWeek, avgPerMonth, avgPerYear, mostInOneWeek, mostInOneMonth, mostInOneYear;
+    TextView numDreams, avgPerWeek, avgPerMonth, avgPerYear, mostInOneWeek, mostInOneMonth, mostInOneYear, currentWeek, currentMonth, currentYear;
     ImageButton connectionButton;
 
     @Override
@@ -39,8 +40,12 @@ public class StatisticsFragment extends Fragment {
         mostInOneWeek = (TextView) view.findViewById(R.id.mostPerWeek);
         mostInOneMonth = (TextView) view.findViewById(R.id.mostPerMonth);
         mostInOneYear = (TextView) view.findViewById(R.id.mostPerYear);
+        currentWeek = (TextView) view.findViewById(R.id.currentThisWeek);
+        currentMonth = (TextView) view.findViewById(R.id.currentThisMonth);
+        currentYear = (TextView) view.findViewById(R.id.currentThisYear);
 
         pref = context.getSharedPreferences(context.getString(R.string.statistics_data),Context.MODE_PRIVATE);
+        editor = pref.edit();
 
         numDreams.setText(String.valueOf(pref.getInt(context.getString(R.string.total_amount_of_dreams), 0)));
         avgPerWeek.setText(String.valueOf(pref.getInt(context.getString(R.string.week_average), 0)));
@@ -49,6 +54,9 @@ public class StatisticsFragment extends Fragment {
         mostInOneWeek.setText(String.valueOf(pref.getInt(context.getString(R.string.most_in_a_week), 0)));
         mostInOneMonth.setText(String.valueOf(pref.getInt(context.getString(R.string.most_in_a_month), 0)));
         mostInOneYear.setText(String.valueOf(pref.getInt(context.getString(R.string.most_in_a_year), 0)));
+        currentWeek.setText(String.valueOf(pref.getInt(context.getString(R.string.week_dream_counter), 0)));
+        currentMonth.setText(String.valueOf(pref.getInt(context.getString(R.string.month_dream_counter), 0)));
+        currentYear.setText(String.valueOf(pref.getInt(context.getString(R.string.year_dream_counter), 0)));
 
         connectionButton = (ImageButton) view.findViewById(R.id.connectionButton);
         connectionButton.setOnClickListener(new View.OnClickListener() {

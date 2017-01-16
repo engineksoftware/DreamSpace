@@ -84,6 +84,115 @@
             <RelativeLayout
                 android:layout_marginTop="@dimen/list_padding"
                 android:layout_below="@+id/numberOfDreamsLayout"
+                android:id="@+id/currentLayout"
+                android:background="@drawable/round_purple_list_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/currentTitle"
+                    android:layout_marginBottom="@dimen/dream_text_margin"
+                    android:layout_marginTop="@dimen/dream_text_margin"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Current"
+                    android:textSize="@dimen/text_size_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"/>
+
+                <LinearLayout
+                    android:background="@color/darkPurple"
+                    android:id="@+id/currentTitleLayout"
+                    android:weightSum="3"
+                    android:layout_below="@+id/currentTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/currentWeekTitle"
+                        android:layout_marginBottom="@dimen/dream_text_margin"
+                        android:textColor="@color/white"
+                        android:fontFamily="sans-serif-light"
+                        android:text="This Week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:id="@+id/currentMonthTitle"
+                        android:layout_marginBottom="@dimen/dream_text_margin"
+                        android:textColor="@color/white"
+                        android:fontFamily="sans-serif-light"
+                        android:text="This Month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:id="@+id/currentYearTitle"
+                        android:layout_marginBottom="@dimen/dream_text_margin"
+                        android:textColor="@color/white"
+                        android:fontFamily="sans-serif-light"
+                        android:text="This Year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@drawable/round_dark_purple_bottom_only"
+                    android:id="@+id/current"
+                    android:weightSum="3"
+                    android:layout_below="@+id/currentTitleLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/currentThisWeek"
+                        android:layout_marginBottom="@dimen/dream_text_margin"
+                        android:textColor="@color/white"
+                        android:fontFamily="sans-serif-light"
+                        android:text="0"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:id="@+id/currentThisMonth"
+                        android:layout_marginBottom="@dimen/dream_text_margin"
+                        android:textColor="@color/white"
+                        android:fontFamily="sans-serif-light"
+                        android:text="0"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:id="@+id/currentThisYear"
+                        android:layout_marginBottom="@dimen/dream_text_margin"
+                        android:textColor="@color/white"
+                        android:fontFamily="sans-serif-light"
+                        android:text="0"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/list_padding"
+                android:layout_below="@+id/currentLayout"
                 android:id="@+id/averagesLayout"
                 android:background="@drawable/round_purple_list_item"
                 android:layout_width="match_parent"

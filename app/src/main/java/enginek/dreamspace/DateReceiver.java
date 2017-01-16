@@ -52,24 +52,10 @@ public class DateReceiver extends BroadcastReceiver {
                         newWeek(); //If so, a new week has started and it calls the newWeek method.
                     }else{
                         weekDayCounter += 1; //If not, one is added to the week day counter.
-
-
-                        int weekDreamCounter = pref.getInt(context.getString(R.string.week_dream_counter), -1);
-
-                        if(weekDreamCounter == -1){//Checks if the dream counter for that week is set to its default value (which means it hasn't been set at all).
-                            weekDreamCounter = 0;//If it is, it gets set to zero.
-                        }
-
-                        if(currentDayCounter < 0){ //Checks if it's less that zero
-                            weekDreamCounter -= currentDayCounter; //If so than subtract
-                        }else{
-                            weekDreamCounter += currentDayCounter;//If not than add
-                        }
-
-                        editor.putInt(context.getString(R.string.week_dream_counter), weekDreamCounter); //Sets the week dream counter to its new value.
                         editor.putInt(context.getString(R.string.week_day_counter), weekDayCounter); //Sets the weekday counter to its new value.
                         editor.commit();
                     }
+
                     String currentYear = pref.getString(context.getString(R.string.current_year), ""); //Gets the current year to be compared to the new year after the date changed.
                     String currentMonth = pref.getString(context.getString(R.string.current_month), ""); //Gets the current month to be compared to the new year after the date changed.
 
@@ -82,13 +68,7 @@ public class DateReceiver extends BroadcastReceiver {
                             monthDreamCounter = 0;//If it is, it gets set to zero.
                         }
 
-                        if(currentDayCounter < 0){ //Checks if it's less that zero
-                            monthDreamCounter -= currentDayCounter; //If so than subtract
-                        }else{
-                            monthDreamCounter += currentDayCounter;//If not than add
-                        }
-
-                        editor.putInt(context.getString(R.string.week_dream_counter), monthDreamCounter); //Sets the month dream counter to its new value.
+                        editor.putInt(context.getString(R.string.month_dream_counter), monthDreamCounter); //Sets the month dream counter to its new value.
                         editor.commit();
                     }
 
@@ -101,13 +81,7 @@ public class DateReceiver extends BroadcastReceiver {
                             yearDreamCounter = 0;//If it is, it gets set to zero.
                         }
 
-                        if(currentDayCounter < 0){ //Checks if it's less that zero
-                            yearDreamCounter -= currentDayCounter; //If so than subtract
-                        }else{
-                            yearDreamCounter += currentDayCounter;//If not than add
-                        }
-
-                        editor.putInt(context.getString(R.string.week_dream_counter), yearDreamCounter); //Sets the year dream counter to its new value.
+                        editor.putInt(context.getString(R.string.year_dream_counter), yearDreamCounter); //Sets the year dream counter to its new value.
                         editor.commit();
                     }
 
