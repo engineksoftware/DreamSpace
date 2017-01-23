@@ -294,7 +294,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             prefEditor.putInt(context.getString(R.string.week_dream_counter), 0);
             prefEditor.putInt(context.getString(R.string.month_dream_counter), 0);
             prefEditor.putInt(context.getString(R.string.year_dream_counter), 0);
-            prefEditor.commit();
+            prefEditor.putInt(context.getString(R.string.week_day_counter),0);
+            prefEditor.apply();
         }else{
             int counterValue = pref.getInt(context.getString(R.string.current_day_counter), 0); //Gets the current day counter value
             int totalDreams = pref.getInt(context.getString(R.string.total_amount_of_dreams), 0); //Gets the total amount of dreams
@@ -311,7 +312,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             prefEditor.putInt(context.getString(R.string.week_dream_counter), weekDreamCounter);
             prefEditor.putInt(context.getString(R.string.month_dream_counter), monthDreamCounter);
             prefEditor.putInt(context.getString(R.string.year_dream_counter), yearDreamCounter);
-            prefEditor.commit();
+            prefEditor.apply();
         }
 
 
@@ -341,7 +342,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         prefEditor.putInt(context.getString(R.string.week_dream_counter), 0);
         prefEditor.putInt(context.getString(R.string.month_dream_counter), 0);
         prefEditor.putInt(context.getString(R.string.year_dream_counter), 0);
-        prefEditor.commit();
+        prefEditor.apply();
     }
 
     public void deleteConnection(Connection connection){
@@ -384,7 +385,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             prefEditor.putString(context.getString(R.string.current_year),year);
             prefEditor.putInt(context.getString(R.string.month_counter),0);
             prefEditor.putInt(context.getString(R.string.year_counter),0);
-            prefEditor.commit();
+            prefEditor.apply();
 
         }
 
@@ -407,15 +408,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         prefEditor.putInt(context.getString(R.string.week_dream_counter), oldWeekCounterValue);
         prefEditor.putInt(context.getString(R.string.month_dream_counter), oldMonthCounterValue);
         prefEditor.putInt(context.getString(R.string.year_dream_counter), oldYearCounterValue);
-        prefEditor.commit();
+        prefEditor.apply();
 
 
-
-    }
-
-    //Gets the word count from the most recent dream, and uses that value to find the average word count
-    //and checks to see if it has the most words.
-    private void compareWordCounts(){
 
     }
 

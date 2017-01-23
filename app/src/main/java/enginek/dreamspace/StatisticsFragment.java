@@ -23,7 +23,7 @@ public class StatisticsFragment extends Fragment {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
-    TextView numDreams, avgPerWeek, avgPerMonth, avgPerYear, mostInOneWeek, mostInOneMonth, mostInOneYear, currentWeek, currentMonth, currentYear;
+    TextView numDreams, avgPerWeek, avgPerMonth, avgPerYear, mostInOneWeek, mostInOneMonth, mostInOneYear, currentWeek, currentMonth, currentYear, test1, test2;
     ImageButton connectionButton;
 
     @Override
@@ -32,6 +32,8 @@ public class StatisticsFragment extends Fragment {
         context = view.getContext();
 
         MainActivity.statisticsClicked();
+
+
 
         numDreams = (TextView) view.findViewById(R.id.numberOfDreams);
         avgPerWeek = (TextView) view.findViewById(R.id.averagePerWeek);
@@ -43,6 +45,8 @@ public class StatisticsFragment extends Fragment {
         currentWeek = (TextView) view.findViewById(R.id.currentThisWeek);
         currentMonth = (TextView) view.findViewById(R.id.currentThisMonth);
         currentYear = (TextView) view.findViewById(R.id.currentThisYear);
+        test1 = (TextView) view.findViewById(R.id.test1);
+        test2 = (TextView) view.findViewById(R.id.test2);
 
         pref = context.getSharedPreferences(context.getString(R.string.statistics_data),Context.MODE_PRIVATE);
         editor = pref.edit();
@@ -57,6 +61,8 @@ public class StatisticsFragment extends Fragment {
         currentWeek.setText(String.valueOf(pref.getInt(context.getString(R.string.week_dream_counter), 0)));
         currentMonth.setText(String.valueOf(pref.getInt(context.getString(R.string.month_dream_counter), 0)));
         currentYear.setText(String.valueOf(pref.getInt(context.getString(R.string.year_dream_counter), 0)));
+        test1.setText(String.valueOf(pref.getInt(context.getString(R.string.current_day_counter), 0)));
+        test2.setText(String.valueOf(pref.getInt(context.getString(R.string.week_day_counter), 0)));
 
         connectionButton = (ImageButton) view.findViewById(R.id.connectionButton);
         connectionButton.setOnClickListener(new View.OnClickListener() {

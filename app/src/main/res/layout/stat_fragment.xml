@@ -408,8 +408,25 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/test1"
+                android:textColor="@color/white"
+                android:text="Current Day Counter: 0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/test1"
+                android:id="@+id/test2"
+                android:textColor="@color/white"
+                android:text="Week Day Counter: 0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
+
+
 
     </ScrollView>
 
