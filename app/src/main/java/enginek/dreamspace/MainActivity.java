@@ -25,6 +25,8 @@ import android.widget.LinearLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.util.Calendar;
+
 public class MainActivity extends FragmentActivity{
 
     private static final String ADD_TAG = "ADD FRAGMENT";

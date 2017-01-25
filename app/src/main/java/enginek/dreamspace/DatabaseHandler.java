@@ -1,5 +1,7 @@
 package enginek.dreamspace;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.ContactsContract;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +18,7 @@ import org.json.JSONObject;
 import java.security.SecureRandomSpi;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -323,6 +327,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_DREAMS, null, null);
 
+        Intent intent = new Intent("DATE_RECEIVER");
+        PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        AlarmManager manager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        manager.cancel(pintent);
+        Toast.makeText(context, "Alarm canceled", Toast.LENGTH_SHORT).show();
+
+
         SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.statistics_data), context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = pref.edit();
 
@@ -342,6 +353,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         prefEditor.putInt(context.getString(R.string.week_dream_counter), 0);
         prefEditor.putInt(context.getString(R.string.month_dream_counter), 0);
         prefEditor.putInt(context.getString(R.string.year_dream_counter), 0);
+        prefEditor.putInt(context.getString(R.string.week_day_counter), 0);
         prefEditor.apply();
     }
 
@@ -380,6 +392,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //It checks if the first dream has been added, and if not it sets the current month and year.
         int firstDreamValue = pref.getInt(context.getString(R.string.first_dream_added), 0);
         if(firstDreamValue == 0){
+            Calendar calendar = Calendar.getInstance();
+            Intent intent = new Intent("DATE_RECEIVER");
+            PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+            alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), ((1000* 60 * 60) * 12), pintent);
+            Toast.makeText(context, "Alarm Created", Toast.LENGTH_SHORT).show();
+
             prefEditor.putInt(context.getString(R.string.first_dream_added),1);
             prefEditor.putString(context.getString(R.string.current_month),month);
             prefEditor.putString(context.getString(R.string.current_year),year);
