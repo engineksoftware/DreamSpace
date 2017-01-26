@@ -22,11 +22,11 @@ public class StartReceiver extends BroadcastReceiver {
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.AM_PM, Calendar.AM);
-            calendar.set(Calendar.DAY_OF_MONTH,1);
+            calendar.add(Calendar.DATE,1);
             Intent i = new Intent("DATE_RECEIVER");
             PendingIntent pintent = PendingIntent.getBroadcast(context, 0, i, 0);
             AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
+            alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
         }
     }
 }

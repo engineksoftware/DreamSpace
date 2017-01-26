@@ -377,11 +377,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.AM_PM, Calendar.AM);
-            calendar.set(Calendar.DAY_OF_MONTH,1);
+            calendar.add(Calendar.DATE,1);
             Intent intent = new Intent("DATE_RECEIVER");
             PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, 0);
             AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
+            alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
             Toast.makeText(context, "Alarm Created", Toast.LENGTH_SHORT).show();
 
             prefEditor.putInt(context.getString(R.string.first_dream_added),1);

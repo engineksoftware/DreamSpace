@@ -45,7 +45,7 @@ public class DateReceiver extends BroadcastReceiver {
 
                     int weekDayCounter = pref.getInt(context.getString(R.string.week_day_counter), 0); //Gets the week day counter
 
-                    if(weekDayCounter == 2){ //Checks if the week day counter is equal to seven.
+                    if(weekDayCounter == 1){ //Checks if the week day counter is equal to seven.
                         //Gets the total num of weeks since the first post, and adds one to it.
                         int weekCounter = pref.getInt(context.getString(R.string.week_counter), 0);
                         weekCounter++;
