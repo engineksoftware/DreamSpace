@@ -17,10 +17,16 @@ public class StartReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
             Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.AM_PM, Calendar.AM);
+            calendar.set(Calendar.DAY_OF_MONTH,1);
             Intent i = new Intent("DATE_RECEIVER");
-            PendingIntent pintent = PendingIntent.getBroadcast(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pintent = PendingIntent.getBroadcast(context, 0, i, 0);
             AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), ((1000* 60 * 60) * 12), pintent);
+            alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
         }
     }
 }

@@ -32,6 +32,7 @@ public class MainActivity extends FragmentActivity{
     private static final String ADD_TAG = "ADD FRAGMENT";
     private static final String DREAM_TAG = "DREAM FRAGMENT";
     private static final String STAT_TAG = "STAT FRAGMENT";
+    private static final String CON_FRAG = "CON FRAGMENT";
 
     static ImageButton add, dreams,statistics;
     AddFragment addFrag;
@@ -86,7 +87,7 @@ public class MainActivity extends FragmentActivity{
         if(getSupportFragmentManager().findFragmentByTag(ADD_TAG) != null && getSupportFragmentManager().findFragmentByTag(ADD_TAG).isVisible()){
             transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         }
-        if(getSupportFragmentManager().findFragmentByTag(STAT_TAG) != null && getSupportFragmentManager().findFragmentByTag(STAT_TAG).isVisible()){
+        if(getSupportFragmentManager().findFragmentByTag(STAT_TAG) != null && getSupportFragmentManager().findFragmentByTag(STAT_TAG).isVisible() || getSupportFragmentManager().findFragmentByTag(CON_FRAG) != null && getSupportFragmentManager().findFragmentByTag(CON_FRAG).isVisible()){
             transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
         }
 

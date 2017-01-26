@@ -281,25 +281,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         int numberOfDreamsTotal = getDreamCount();//Gets the total number of dreams
         if(numberOfDreamsTotal == 0){//Checks if all dreams have been deleted.
+            Intent intent = new Intent("DATE_RECEIVER");
+            PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, 0);
+            AlarmManager manager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+            manager.cancel(pintent);
 
-            //If so, all of the counter values get set to zero, and it sets the first dream added to zero which means that no dreams have been added yet.
-            prefEditor.putInt(context.getString(R.string.first_dream_added), 0);
-            prefEditor.putInt(context.getString(R.string.current_day_counter), 0);
-            prefEditor.putInt(context.getString(R.string.week_counter), 0);
-            prefEditor.putInt(context.getString(R.string.month_counter), 0);
-            prefEditor.putInt(context.getString(R.string.year_counter), 0);
-            prefEditor.putInt(context.getString(R.string.total_amount_of_dreams), 0);
-            prefEditor.putInt(context.getString(R.string.week_average), 0);
-            prefEditor.putInt(context.getString(R.string.month_average), 0);
-            prefEditor.putInt(context.getString(R.string.year_average), 0);
-            prefEditor.putInt(context.getString(R.string.most_in_a_week), 0);
-            prefEditor.putInt(context.getString(R.string.most_in_a_month), 0);
-            prefEditor.putInt(context.getString(R.string.most_in_a_year), 0);
-            prefEditor.putInt(context.getString(R.string.week_dream_counter), 0);
-            prefEditor.putInt(context.getString(R.string.month_dream_counter), 0);
-            prefEditor.putInt(context.getString(R.string.year_dream_counter), 0);
-            prefEditor.putInt(context.getString(R.string.week_day_counter),0);
-            prefEditor.apply();
+            //Clears all of the values in the shared preferences.
+            prefEditor.clear().apply();
         }else{
             int counterValue = pref.getInt(context.getString(R.string.current_day_counter), 0); //Gets the current day counter value
             int totalDreams = pref.getInt(context.getString(R.string.total_amount_of_dreams), 0); //Gets the total amount of dreams
@@ -327,6 +315,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_DREAMS, null, null);
 
+        deleteAllConnections();
+
         Intent intent = new Intent("DATE_RECEIVER");
         PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, 0);
         AlarmManager manager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -337,24 +327,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.statistics_data), context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = pref.edit();
 
-        //All of the counter values get set to zero, and it sets the first dream added to zero which means that no dreams have been added yet.
-        prefEditor.putInt(context.getString(R.string.first_dream_added), 0);
-        prefEditor.putInt(context.getString(R.string.current_day_counter), 0);
-        prefEditor.putInt(context.getString(R.string.week_counter), 0);
-        prefEditor.putInt(context.getString(R.string.month_counter), 0);
-        prefEditor.putInt(context.getString(R.string.year_counter), 0);
-        prefEditor.putInt(context.getString(R.string.total_amount_of_dreams), 0);
-        prefEditor.putInt(context.getString(R.string.week_average), 0);
-        prefEditor.putInt(context.getString(R.string.month_average), 0);
-        prefEditor.putInt(context.getString(R.string.year_average), 0);
-        prefEditor.putInt(context.getString(R.string.most_in_a_week), 0);
-        prefEditor.putInt(context.getString(R.string.most_in_a_month), 0);
-        prefEditor.putInt(context.getString(R.string.most_in_a_year), 0);
-        prefEditor.putInt(context.getString(R.string.week_dream_counter), 0);
-        prefEditor.putInt(context.getString(R.string.month_dream_counter), 0);
-        prefEditor.putInt(context.getString(R.string.year_dream_counter), 0);
-        prefEditor.putInt(context.getString(R.string.week_day_counter), 0);
-        prefEditor.apply();
+        //Clears all of the values in the shared preferences.
+        prefEditor.clear().apply();
     }
 
     public void deleteConnection(Connection connection){
@@ -362,6 +336,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_CONNECTIONS, KEY_ID + " = ?",
                 new String[] {String.valueOf(connection.getConnection_id())});
 
+    }
+
+    public void deleteAllConnections(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CONNECTIONS, null, null);
     }
 
     public void removeConnectionsThatContainDreamId(int dreamId){
@@ -393,10 +372,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int firstDreamValue = pref.getInt(context.getString(R.string.first_dream_added), 0);
         if(firstDreamValue == 0){
             Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.AM_PM, Calendar.AM);
+            calendar.set(Calendar.DAY_OF_MONTH,1);
             Intent intent = new Intent("DATE_RECEIVER");
-            PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, 0);
             AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), ((1000* 60 * 60) * 12), pintent);
+            alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
             Toast.makeText(context, "Alarm Created", Toast.LENGTH_SHORT).show();
 
             prefEditor.putInt(context.getString(R.string.first_dream_added),1);

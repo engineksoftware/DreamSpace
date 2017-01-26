@@ -39,7 +39,6 @@ public class DateReceiver extends BroadcastReceiver {
                     year = date.substring(0,4);
                     month = date.substring(5,7);
 
-                    int currentDayCounter = pref.getInt(context.getString(R.string.current_day_counter), 0); //Gets the number of dreams added yesterday.
                     totalDreams = pref.getInt(context.getString(R.string.total_amount_of_dreams), 0); //Gets the total number of dreams.
 
                     editor.putInt(context.getString(R.string.current_day_counter), 0); //Resets the current day counter back to zero.
@@ -54,7 +53,7 @@ public class DateReceiver extends BroadcastReceiver {
                         //finds the average by dividing the total number of dreams by the total number of weeks.
                         int average = totalDreams / weekCounter;
 
-                        int weekDreamCounter = pref.getInt(context.getString(R.string.week_dream_counter), -1); //Gets the weekDreamCounter value
+                        int weekDreamCounter = pref.getInt(context.getString(R.string.week_dream_counter), 0); //Gets the weekDreamCounter value
                         int oldWeekMost = pref.getInt(context.getString(R.string.most_in_a_week), 0); //Gets the old most in one week value
                         if(weekDreamCounter > oldWeekMost){ //Checks if the week dream counter is larger than it.
                             editor.putInt(context.getString(R.string.most_in_a_week), weekDreamCounter);//If so, it changes the value to the week dream counter.
@@ -79,7 +78,7 @@ public class DateReceiver extends BroadcastReceiver {
                         monthCounter++; //Adds one to old month value.
                         int average = totalDreams / monthCounter;
 
-                        int monthDreamCounter = pref.getInt(context.getString(R.string.month_dream_counter), -1); //Gets the month dream counter value
+                        int monthDreamCounter = pref.getInt(context.getString(R.string.month_dream_counter), 0); //Gets the month dream counter value
                         int oldMonthMost = pref.getInt(context.getString(R.string.most_in_a_month), 0); //Gets the old most in one month value
                         if(monthDreamCounter > oldMonthMost){ //Checks if the month dream counter is larger than it.
                             editor.putInt(context.getString(R.string.most_in_a_month), monthDreamCounter);//If so, it changes the value to the month dream counter.
@@ -98,7 +97,7 @@ public class DateReceiver extends BroadcastReceiver {
                         yearCounter++; //Adds one to old year value.
                         int average = totalDreams / yearCounter;
 
-                        int yearDreamCounter = pref.getInt(context.getString(R.string.year_dream_counter), -1); //Gets the year dream counter value
+                        int yearDreamCounter = pref.getInt(context.getString(R.string.year_dream_counter), 0); //Gets the year dream counter value
                         int oldYearMost = pref.getInt(context.getString(R.string.most_in_a_year), 0); //Gets the old most in one year value
                         if(yearDreamCounter > oldYearMost){ //Checks if the year dream counter is larger than it.
                             editor.putInt(context.getString(R.string.most_in_a_year), yearDreamCounter);//If so, it changes the value to the year dream counter.

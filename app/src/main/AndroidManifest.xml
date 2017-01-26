@@ -47,12 +47,6 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".StatService"
-            android:enabled="true">
-
-        </service>
-
     </application>
 
 </manifest>
