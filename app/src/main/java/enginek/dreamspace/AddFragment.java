@@ -1,5 +1,6 @@
 package enginek.dreamspace;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;

@@ -18,7 +18,7 @@ public class StartReceiver extends BroadcastReceiver {
         if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR, 0);
+            calendar.set(Calendar.HOUR, 12);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.AM_PM, Calendar.AM);
