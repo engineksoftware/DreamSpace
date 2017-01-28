@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/topbar"
+        android:background="@color/mainPurple"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/purple_button"
+            android:src="@drawable/back_button"
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:layout_toRightOf="@+id/backButton"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@color/white"
+            android:text="Connections Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:background="@color/black"
+        android:layout_below="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:paddingRight="@dimen/list_padding"
+            android:paddingBottom="@dimen/list_padding"
+            android:paddingTop="@dimen/list_padding"
+            android:paddingLeft="@dimen/list_padding"
+            android:background="@color/background"
+            android:layout_below="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text1"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="In the connections tab, you will see dreams that the app thinks could possibly be connected. It will list them for you, but it leaves the final say on whether they are or not up to you. Possible connections will be listed with this color background... "/>
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_marginTop="10dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/button1"
+                android:id="@+id/text2"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You can choose to either reject, or accept that connection. If you reject, you will never see it again. If you decide to accept it, the background will change to this color..."/>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_marginTop="10dp"
+                android:background="@color/mainPurple"
+                android:layout_below="@+id/text2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/button2"
+                android:id="@+id/text3"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I wouldn't expect to see too many connections, because most dreams are too random. But still check back here when you've added a new dream just in case the app thinks it's connected to another dream."/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

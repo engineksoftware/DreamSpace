@@ -44,6 +44,20 @@ public class ConFragment extends ListFragment {
             }
         });
 
+        ImageButton info = (ImageButton) view.findViewById(R.id.infoButton);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InfoFragment frag = new InfoFragment();
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+                transaction.replace(R.id.framelayout, frag, context.getString(R.string.info_fragment));
+                transaction.addToBackStack(context.getString(R.string.info_fragment));
+                transaction.commit();
+            }
+        });
+
         return view;
     }
 

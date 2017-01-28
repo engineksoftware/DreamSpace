@@ -32,6 +32,7 @@
     <string name="con_fragment">CON FRAGMENT</string>
     <string name="con_view_fragment">CON VIEW FRAGMENT</string>
     <string name="edit_fragment">EDIT FRAGMENT</string>
+    <string name="info_fragment">INFO FRAGMENT</string>
 
     <!-- Admob IDS -->
     <string name="app_id">ca-app-pub-2527894212887555~3238386220</string>
