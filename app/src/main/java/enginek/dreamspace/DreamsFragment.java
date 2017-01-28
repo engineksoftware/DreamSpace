@@ -121,12 +121,22 @@ public class DreamsFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 if(deleteDreamList.size() > 0){
+                    int position = deleteDreamList.get(deleteDreamList.size()-1);
+
                     for (int x = 0; x < deleteDreamList.size(); x++){
                         db.deleteDream(dbList.get(deleteDreamList.get(x)));
                         adapter.remove(adapter.getItem(deleteDreamList.get(x)));
-                        buttonLayout.setVisibility(View.GONE);
 
                     }
+
+                    buttonLayout.setVisibility(View.GONE);
+                    deleteDreamList.clear();
+                    deleteSelected = false;
+
+                    for(int x=position; x < dreamList.size(); x++){
+                        getListView().getChildAt(x).setBackground(context.getDrawable(R.drawable.round_purple_list_item));
+                    }
+
                 }else{
                     Toast.makeText(context, "Please select a dream first.", Toast.LENGTH_SHORT).show();
                 }
@@ -148,6 +158,8 @@ public class DreamsFragment extends ListFragment {
                             getListView().getChildAt(deleteDreamList.get(x)).setBackground(context.getDrawable(R.drawable.round_purple_list_item));
                         }
                     }
+
+                    deleteDreamList.clear();
                 }else
                 if(db.getDreamCount() > 0){
                     deleteSelected = true;
@@ -237,8 +249,6 @@ public class DreamsFragment extends ListFragment {
             transaction.commit();
         }else{
 
-
-
             if(deleteDreamList.contains(position)){
                 v.setBackground(context.getDrawable(R.drawable.round_purple_list_item));
                 deleteDreamList.remove((Object) position);
@@ -269,6 +279,8 @@ public class DreamsFragment extends ListFragment {
             public void onClick(View v) {
                 db.deleteAllDreams();
                 buttonLayout.setVisibility(View.GONE);
+                deleteDreamList.clear();
+                deleteSelected = false;
                 dialog.dismiss();
             }
         });
