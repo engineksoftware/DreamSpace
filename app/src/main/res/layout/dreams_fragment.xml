@@ -81,14 +81,49 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:paddingTop="@dimen/list_padding"
         android:paddingBottom="@dimen/list_padding"
         android:background="@color/background"
         android:layout_below="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/buttonLayout"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/deleteAll"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-light"
+                android:text="Delete all"
+                android:textAllCaps="false"
+                android:background="@drawable/top_delete_left_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_weight="1"
+                android:layout_toRightOf="@+id/deleteAll"
+                android:id="@+id/deleteSelected"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-light"
+                android:text="Delete Selected"
+                android:textAllCaps="false"
+                android:background="@drawable/top_delete_right_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
         <ListView
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/buttonLayout"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:divider="@null"
@@ -100,6 +135,7 @@
         </ListView>
 
         <TextView
+            android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:visibility="visible"

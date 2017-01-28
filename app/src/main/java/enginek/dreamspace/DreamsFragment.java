@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,12 +53,17 @@ public class DreamsFragment extends ListFragment {
     static DreamListAdapter adapter;
     AdView adView;
     AdRequest request;
+    boolean deleteSelected;
+    List<Integer> deleteDreamList;
+    LinearLayout buttonLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dreams_fragment, container, false);
 
         MainActivity.dreamsClicked();
+        deleteSelected = false;
+        deleteDreamList = new ArrayList();
 
         //Gets dreams from db
         db = new DatabaseHandler(view.getContext());
@@ -100,14 +107,55 @@ public class DreamsFragment extends ListFragment {
             }
         });
 
+        buttonLayout = (LinearLayout) view.findViewById(R.id.buttonLayout);
+        Button deleteAll = (Button) view.findViewById(R.id.deleteAll);
+        deleteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDeleteAlert();
+            }
+        });
+
+        Button deleteS = (Button) view.findViewById(R.id.deleteSelected);
+        deleteS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(deleteDreamList.size() > 0){
+                    for (int x = 0; x < deleteDreamList.size(); x++){
+                        db.deleteDream(dbList.get(deleteDreamList.get(x)));
+                        adapter.remove(adapter.getItem(deleteDreamList.get(x)));
+                        buttonLayout.setVisibility(View.GONE);
+
+                    }
+                }else{
+                    Toast.makeText(context, "Please select a dream first.", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
         delete = (ImageButton) view.findViewById(R.id.deleteButton);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(db.getDreamCount() > 0)
-                    createDeleteAlert();
-                else
+
+                if(deleteSelected){
+                    buttonLayout.setVisibility(View.GONE);
+                    deleteSelected = false;
+
+                    if(deleteDreamList.size() > 0){
+                        for(int x=0; x < deleteDreamList.size(); x++){
+                            getListView().getChildAt(deleteDreamList.get(x)).setBackground(context.getDrawable(R.drawable.round_purple_list_item));
+                        }
+                    }
+                }else
+                if(db.getDreamCount() > 0){
+                    deleteSelected = true;
+                    buttonLayout.setVisibility(View.VISIBLE);
+                }else{
                     Toast.makeText(context, "No dreams to delete.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -141,6 +189,8 @@ public class DreamsFragment extends ListFragment {
             noDreams.setVisibility(View.VISIBLE);
         }
 
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
 
     }
 
@@ -167,23 +217,40 @@ public class DreamsFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        Dream dream = db.getDream(dbList.get(position).getId());
-        DreamFragment frag = new DreamFragment();
+        if(deleteSelected == false){
+            Dream dream = db.getDream(dbList.get(position).getId());
+            DreamFragment frag = new DreamFragment();
 
-        Bundle args = new Bundle();
-        args.putInt("id", dream.getId());
-        args.putString("title", dream.getTitle());
-        args.putString("dream", dream.getDream());
-        args.putString("time", dream.getTime());
-        args.putString("date", dream.getDate());
-        frag.setArguments(args);
+            Bundle args = new Bundle();
+            args.putInt("id", dream.getId());
+            args.putString("title", dream.getTitle());
+            args.putString("dream", dream.getDream());
+            args.putString("time", dream.getTime());
+            args.putString("date", dream.getDate());
+            frag.setArguments(args);
 
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-        transaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
-        transaction.replace(R.id.framelayout, frag);
-        transaction.addToBackStack(context.getString(R.string.dreams_fragment));
-        transaction.commit();
+            transaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
+            transaction.replace(R.id.framelayout, frag);
+            transaction.addToBackStack(context.getString(R.string.dreams_fragment));
+            transaction.commit();
+        }else{
+
+
+
+            if(deleteDreamList.contains(position)){
+                v.setBackground(context.getDrawable(R.drawable.round_purple_list_item));
+                deleteDreamList.remove((Object) position);
+            }else{
+                v.setBackground(context.getDrawable(R.drawable.delete_list_item));
+                deleteDreamList.add(position);
+            }
+
+
+        }
+
+
 
 
     }
@@ -200,34 +267,8 @@ public class DreamsFragment extends ListFragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createCheckAlert();
-                dialog.dismiss();
-            }
-        });
-
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
-
-    public void createCheckAlert(){
-        //Creates dialog using custom layout
-        final Dialog dialog = new Dialog(view.getContext());
-        dialog.setContentView(R.layout.delete_all_check_dialog);
-        dialog.setCancelable(true);
-
-        Button delete = (Button) dialog.findViewById(R.id.deletedream);
-        Button close = (Button) dialog.findViewById(R.id.closedialog);
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 db.deleteAllDreams();
+                buttonLayout.setVisibility(View.GONE);
                 dialog.dismiss();
             }
         });
