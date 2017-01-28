@@ -27,7 +27,7 @@ public class StatisticsFragment extends Fragment {
     ImageButton connectionButton;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.stat_fragment, container, false);
         context = view.getContext();
 
@@ -72,8 +72,16 @@ public class StatisticsFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
                 transaction.replace(R.id.framelayout, frag, context.getString(R.string.con_fragment));
-                transaction.addToBackStack(null);
+                transaction.addToBackStack(context.getString(R.string.con_fragment));
                 transaction.commit();
+            }
+        });
+
+        ImageButton back = (ImageButton) view.findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
             }
         });
 

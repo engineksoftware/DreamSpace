@@ -142,15 +142,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Dream getDream(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
+        Dream dream = new Dream();
+
         Cursor cursor = db.query(TABLE_DREAMS,
                 new String[] {KEY_ID,KEY_TITLE,KEY_DREAM,KEY_TIME,KEY_DATE,KEY_VECTOR}, KEY_ID + "=?",
                 new String[] {String.valueOf(id)} , null, null, null, null);
 
-        if(cursor != null)
+        if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
+            dream = new Dream(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
+        }else{
+            dream = null;
+        }
 
-        Dream dream = new Dream(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
+
+
 
         return dream;
     }

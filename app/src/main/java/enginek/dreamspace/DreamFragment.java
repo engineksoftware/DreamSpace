@@ -1,6 +1,7 @@
 package enginek.dreamspace;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +31,12 @@ public class DreamFragment extends Fragment {
     View view;
     Bundle args;
     boolean editing;
+    Context context;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dream_fragment, container, false);
+        context = view.getContext();
 
         MainActivity.dreamsClicked();
 
@@ -76,8 +80,16 @@ public class DreamFragment extends Fragment {
 
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.framelayout, frag);
-                transaction.addToBackStack(null);
+                transaction.addToBackStack(context.getString(R.string.edit_fragment));
                 transaction.commit();
+            }
+        });
+
+        ImageButton back = (ImageButton) view.findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
             }
         });
 

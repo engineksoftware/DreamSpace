@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity{
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_left);
         transaction.replace(R.id.framelayout, addFrag, ADD_TAG);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(this.getString(R.string.add_fragment));
         transaction.commit();
 
     }
@@ -92,7 +92,7 @@ public class MainActivity extends FragmentActivity{
         }
 
         transaction.replace(R.id.framelayout, dreFrag, DREAM_TAG);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(this.getString(R.string.dreams_fragment));
         transaction.commit();
     }
 
@@ -107,7 +107,7 @@ public class MainActivity extends FragmentActivity{
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         transaction.replace(R.id.framelayout, statFrag, STAT_TAG);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(this.getString(R.string.stat_fragment));
         transaction.commit();
     }
 

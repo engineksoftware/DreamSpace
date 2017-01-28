@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.formats.NativeAd;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,6 +33,7 @@ public class AddFragment extends Fragment {
     AdView adView;
     AdRequest request;
     boolean adLoaded;
+    ImageButton back;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +59,14 @@ public class AddFragment extends Fragment {
                 }else{
                     createAlert();
                 }
+            }
+        });
+
+        back = (ImageButton) view.findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
             }
         });
 

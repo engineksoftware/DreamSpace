@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -24,6 +25,7 @@ public class ConViewFragment extends Fragment {
     LinearLayout buttonsLayout;
     int accepted;
     ViewSwitcher viewSwitcher;
+    Dream dreamA, dreamB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,8 +36,14 @@ public class ConViewFragment extends Fragment {
 
         handler = new DatabaseHandler(context);
         bundle = getArguments();
-        Dream dreamA = handler.getDream(bundle.getInt("dreamA_id"));
-        Dream dreamB = handler.getDream(bundle.getInt("dreamB_id"));
+
+        if(handler.getDream(bundle.getInt("dreamA_id")) == null || handler.getDream(bundle.getInt("dreamB_id")) == null){
+            getFragmentManager().popBackStack();
+        }else{
+            dreamA = handler.getDream(bundle.getInt("dreamA_id"));
+            dreamB = handler.getDream(bundle.getInt("dreamB_id"));
+        }
+
         accepted = bundle.getInt("accepted");
 
         title = (TextView) view.findViewById(R.id.connectionTitle);
@@ -90,6 +98,14 @@ public class ConViewFragment extends Fragment {
                 connection.setAccepted(1);
 
                 handler.deleteConnection(connection);
+                getFragmentManager().popBackStack();
+            }
+        });
+
+        ImageButton back = (ImageButton) view.findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 getFragmentManager().popBackStack();
             }
         });

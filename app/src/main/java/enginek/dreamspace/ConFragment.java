@@ -2,11 +2,13 @@ package enginek.dreamspace;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class ConFragment extends ListFragment {
     Context context;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.con_fragment, container, false);
         context = view.getContext();
 
@@ -33,6 +35,14 @@ public class ConFragment extends ListFragment {
         db = new DatabaseHandler(view.getContext());
         connections = db.getConnections();
         connectionList = new ArrayList();
+
+        ImageButton back = (ImageButton) view.findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
 
         return view;
     }
@@ -87,8 +97,8 @@ public class ConFragment extends ListFragment {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
-        transaction.replace(R.id.framelayout, frag);
-        transaction.addToBackStack(null);
+        transaction.replace(R.id.framelayout, frag, context.getString(R.string.con_view_fragment));
+        transaction.addToBackStack(context.getString(R.string.con_view_fragment));
         transaction.commit();
 
 

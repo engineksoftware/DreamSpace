@@ -111,6 +111,14 @@ public class DreamsFragment extends ListFragment {
             }
         });
 
+        ImageButton back = (ImageButton) view.findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
+
         return view;
     }
 
@@ -174,7 +182,7 @@ public class DreamsFragment extends ListFragment {
 
         transaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_top, R.anim.slide_out_bottom);
         transaction.replace(R.id.framelayout, frag);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(context.getString(R.string.dreams_fragment));
         transaction.commit();
 
 
