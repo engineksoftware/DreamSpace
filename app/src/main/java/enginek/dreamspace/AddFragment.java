@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -26,6 +27,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AddFragment extends Fragment {
+
+    private static final String ADD_TAG = "ADD FRAGMENT";
+    private static final String DREAM_TAG = "DREAM FRAGMENT";
+    private static final String STAT_TAG = "STAT FRAGMENT";
+    private static final String CON_FRAG = "CON FRAGMENT";
 
     View view;
     String title;

@@ -28,10 +28,10 @@ public class DateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-                pref = context.getSharedPreferences(context.getString(R.string.statistics_data), 0);
+                pref = context.getSharedPreferences(context.getString(R.string.statistics_data), context.MODE_PRIVATE);
                 editor = pref.edit();
 
-                if(pref.getInt(context.getString(R.string.first_dream_added),context.MODE_PRIVATE) == 1){
+                if(pref.getInt(context.getString(R.string.first_dream_added),0) == 1){
                     //Gets the current year and month.
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");

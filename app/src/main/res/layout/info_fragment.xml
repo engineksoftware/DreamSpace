@@ -53,7 +53,7 @@
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="In the connections tab, you will see dreams that the app thinks could possibly be connected. It will list them for you, but it leaves the final say on whether they are or not up to you. Possible connections will be listed with this color background... "/>
+                android:text="This app takes into account the words you used to describe your dream, and how many times they were used. The app then uses that information to compare the dreams to each other, and find similarities. \n\nDreams with possible connections will be shown in the list with this background color... "/>
 
             <Button
                 android:id="@+id/button1"
@@ -71,7 +71,7 @@
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="You can choose to either reject, or accept that connection. If you reject, you will never see it again. If you decide to accept it, the background will change to this color..."/>
+                android:text="If you accept the connection, the connection will be shown in the list with this background color..."/>
 
             <Button
                 android:id="@+id/button2"
@@ -80,17 +80,6 @@
                 android:layout_below="@+id/text2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/button2"
-                android:id="@+id/text3"
-                android:textSize="@dimen/text_size_small"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="I wouldn't expect to see too many connections, because most dreams are too random. But still check back here when you've added a new dream just in case the app thinks it's connected to another dream."/>
-
         </RelativeLayout>
 
     </ScrollView>
