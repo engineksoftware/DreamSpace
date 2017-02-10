@@ -19,7 +19,7 @@ public class StartReceiver extends BroadcastReceiver {
         if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
 
 
-            //eadawsdsadgh
+            //eadawsdsadghfg
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
