@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="10dp"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    tools:context=".AddFragment">
+
+    <RelativeLayout
+        android:id="@+id/topbar"
+        android:background="@color/mainPurple"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/purple_button"
+            android:src="@drawable/back_button"
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+
+    <TextView
+        android:layout_toRightOf="@+id/backButton"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/text_size_large"
+        android:textColor="@color/white"
+        android:text="New Dream"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/savedream"
+            android:textAllCaps="false"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/purple_button"
+            android:textColor="@color/white"
+            android:src="@drawable/save_button"
+            android:fontFamily="sans-serif-light"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/adviewLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/ad_unit_id">
+        </com.google.android.gms.ads.AdView>
+
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:layout_above="@+id/adviewLayout"
+        android:id="@+id/editTextLayout"
+        android:layout_below="@+id/topbar"
+        android:background="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_marginRight="@dimen/dream_text_margin"
+            android:layout_marginLeft="@dimen/dream_text_margin"
+            android:textColorHint="@color/white"
+            android:hint="Write as much as you can remember..."
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine|textCapSentences"
+            android:ems="10"
+            android:id="@+id/dreamtext"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

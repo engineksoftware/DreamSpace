@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Dream Space</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- These are the tags for the fragments -->
+    <string name="add_fragment">ADD FRAGMENT</string>
+    <string name="dreams_fragment">DREAM FRAGMENT</string>
+    <string name="stat_fragment">STAT FRAGMENT</string>
+    <string name="con_fragment">CON FRAGMENT</string>
+    <string name="con_view_fragment">CON VIEW FRAGMENT</string>
+    <string name="edit_fragment">EDIT FRAGMENT</string>
+    <string name="info_fragment">INFO FRAGMENT</string>
+
+    <!-- Admob IDS -->
+    <string name="app_id">ca-app-pub-2527894212887555~3238386220</string>
+    <string name="ad_unit_id">ca-app-pub-2527894212887555/7668585825</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

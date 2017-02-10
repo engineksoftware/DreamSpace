@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainPurple"
+    xmlns:ads="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/topbar"
+        android:background="@color/mainPurple"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/purple_button"
+            android:src="@drawable/back_button"
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+
+        <ViewSwitcher
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/backButton"
+            android:id="@+id/viewSwitcher"
+            android:layout_toLeftOf="@+id/searchbutton"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:textSize="@dimen/text_size_large"
+                android:textColor="@color/white"
+                android:text="Your Dreams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/searchParams"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search by title."
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                />
+
+        </ViewSwitcher>
+
+        <ImageButton
+            android:paddingLeft="10dp"
+            android:paddingRight="@dimen/dream_text_margin"
+            android:layout_toLeftOf="@+id/deleteButton"
+            android:id="@+id/searchbutton"
+            android:background="@color/mainPurple"
+            android:scaleType="fitCenter"
+            android:layout_centerVertical="true"
+            android:src="@drawable/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/deleteButton"
+            android:background="@color/mainPurple"
+            android:scaleType="fitCenter"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:paddingBottom="@dimen/list_padding"
+        android:background="@color/background"
+        android:layout_below="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/buttonLayout"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/deleteAll"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-light"
+                android:text="Delete all"
+                android:textAllCaps="false"
+                android:background="@drawable/top_delete_left_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_weight="1"
+                android:layout_toRightOf="@+id/deleteAll"
+                android:id="@+id/deleteSelected"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-light"
+                android:text="Delete Selected"
+                android:textAllCaps="false"
+                android:background="@drawable/top_delete_right_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/buttonLayout"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:divider="@null"
+            android:dividerHeight="@dimen/list_padding"
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:visibility="visible"
+            android:id="@+id/nodreamstext"
+            android:textSize="@dimen/text_size_medium"
+            android:textColor="@color/white"
+            android:text="No dreams yet :("
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

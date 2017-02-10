@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_purple_list_item">
+
+    <TextView
+
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit ="marquee_forever"
+        android:layout_toLeftOf="@+id/dreamTime"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/dreamTitle"
+        android:layout_marginBottom="@dimen/dream_text_margin"
+        android:layout_marginTop="@dimen/dream_text_margin"
+        android:layout_marginLeft="@dimen/dream_text_margin"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/white"
+        android:text="TESTTTTTT"
+        android:textSize="@dimen/text_size_large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/dreamDate"
+        android:id="@+id/dreamTime"
+        android:layout_marginRight="@dimen/dream_text_margin"
+        android:layout_marginBottom="@dimen/dream_text_margin"
+        android:layout_marginTop="@dimen/dream_text_margin"
+        android:layout_marginLeft="@dimen/dream_text_margin"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/white"
+        android:text="02:31pm"
+        android:textSize="@dimen/text_size_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/dreamDate"
+        android:layout_marginRight="@dimen/dream_text_margin"
+        android:layout_marginBottom="@dimen/dream_text_margin"
+        android:layout_marginTop="@dimen/dream_text_margin"
+        android:layout_marginLeft="@dimen/dream_text_margin"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/white"
+        android:text="2016-10-08"
+        android:textSize="@dimen/text_size_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

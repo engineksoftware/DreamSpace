@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#561570</color>
+    <color name="black">#000000</color>
+    <color name="background">#000000</color>
+    <color name="mainPurple">#063942</color>
+    <color name="darkPurple">#0C2430</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#829ca0</color>
+    <color name="purpleCompliment">#420f06</color>
+</resources>

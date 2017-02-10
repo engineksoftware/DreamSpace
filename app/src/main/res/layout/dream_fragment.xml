@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <RelativeLayout
+        android:id="@+id/topbar"
+        android:background="@color/mainPurple"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/purple_button"
+            android:src="@drawable/back_button"
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+
+        <HorizontalScrollView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/backButton"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/dreamtime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:maxLines="1"
+                android:id="@+id/dreamtitle"
+                android:fontFamily="sans-serif-light"
+                android:textSize="@dimen/text_size_large"
+                android:textColor="@color/white"
+                android:text="Your Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_marginLeft="@dimen/dream_text_margin"
+            android:layout_toLeftOf="@+id/dreamdate"
+            android:id="@+id/dreamtime"
+            android:fontFamily="sans-serif-light"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white"
+            android:text="05:58pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+
+        <TextView
+            android:layout_marginRight="@dimen/dream_text_margin"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/dreamdate"
+            android:fontFamily="sans-serif-light"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white"
+            android:text="2016-10-08"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_above="@+id/dreamButtons"
+        android:textIsSelectable="true"
+        android:id="@+id/yourdream"
+        android:layout_marginBottom="@dimen/dream_text_margin"
+        android:layout_marginTop="@dimen/dream_text_margin"
+        android:layout_marginRight="@dimen/dream_text_margin"
+        android:layout_marginLeft="@dimen/dream_text_margin"
+        android:layout_below="@+id/topbar"
+        android:text="Your dream here"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_medium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:id="@+id/dreamButtons"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/editdream"
+            android:textAllCaps="false"
+            android:fontFamily="sans-serif-light"
+            android:background="@drawable/left_button"
+            android:text="Edit"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/deletedream"
+            android:textAllCaps="false"
+            android:fontFamily="sans-serif-light"
+            android:background="@drawable/right_button"
+            android:text="Delete"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>
