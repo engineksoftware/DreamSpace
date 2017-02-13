@@ -19,7 +19,7 @@ public class CurrentData {
 
     }
 
-    public CurrentData(int id, int dayCounter, int weekCounter, int monthCounter, int yearCounter, int started){
+    public CurrentData(int id, int dayCounter, int weekCounter, int monthCounter){
         this.week = dayCounter;
         this.month = weekCounter;
         this.year = monthCounter;

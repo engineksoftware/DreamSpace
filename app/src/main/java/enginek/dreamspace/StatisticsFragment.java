@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Joseph on 12/28/2016.
@@ -23,7 +25,7 @@ public class StatisticsFragment extends Fragment {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
-    TextView numDreams, avgPerWeek, avgPerMonth, avgPerYear, mostInOneWeek, mostInOneMonth, mostInOneYear, currentWeek, currentMonth, currentYear, test1, test2;
+    TextView numDreams, avgPerWeek, avgPerMonth, avgPerYear, mostInOneWeek, mostInOneMonth, mostInOneYear, currentWeek, currentMonth, currentYear;
     ImageButton connectionButton;
 
     @Override
@@ -33,7 +35,7 @@ public class StatisticsFragment extends Fragment {
 
         MainActivity.statisticsClicked();
 
-
+        DatabaseHandler db = new DatabaseHandler(context);
 
         numDreams = (TextView) view.findViewById(R.id.numberOfDreams);
         avgPerWeek = (TextView) view.findViewById(R.id.averagePerWeek);
@@ -45,24 +47,21 @@ public class StatisticsFragment extends Fragment {
         currentWeek = (TextView) view.findViewById(R.id.currentThisWeek);
         currentMonth = (TextView) view.findViewById(R.id.currentThisMonth);
         currentYear = (TextView) view.findViewById(R.id.currentThisYear);
-        test1 = (TextView) view.findViewById(R.id.test1);
-        test2 = (TextView) view.findViewById(R.id.test2);
 
-        pref = context.getSharedPreferences(context.getString(R.string.statistics_data),Context.MODE_PRIVATE);
-        editor = pref.edit();
+        if(db.getAverageData() != null && db.getCurrentData() != null && db.getRecordData() != null && db.getCounterData() != null){
+            numDreams.setText(String.valueOf(db.getDreamCount()));
+            avgPerWeek.setText(String.valueOf(db.getAverageData().getWeek()));
+            avgPerMonth.setText(String.valueOf(db.getAverageData().getMonth()));
+            avgPerYear.setText(String.valueOf(db.getAverageData().getYear()));
+            mostInOneWeek.setText(String.valueOf(db.getRecordData().getWeekRecord()));
+            mostInOneMonth.setText(String.valueOf(db.getRecordData().getMonthRecord()));
+            mostInOneYear.setText(String.valueOf(db.getRecordData().getYearRecord()));
+            currentWeek.setText(String.valueOf(db.getCurrentData().getWeek()));
+            currentMonth.setText(String.valueOf(db.getCurrentData().getMonth()));
+            currentYear.setText(String.valueOf(db.getCurrentData().getYear()));
+        }
 
-        numDreams.setText(String.valueOf(pref.getInt(context.getString(R.string.total_amount_of_dreams), 0)));
-        avgPerWeek.setText(String.valueOf(pref.getInt(context.getString(R.string.week_average), 0)));
-        avgPerMonth.setText(String.valueOf(pref.getInt(context.getString(R.string.month_average), 0)));
-        avgPerYear.setText(String.valueOf(pref.getInt(context.getString(R.string.year_average), 0)));
-        mostInOneWeek.setText(String.valueOf(pref.getInt(context.getString(R.string.most_in_a_week), 0)));
-        mostInOneMonth.setText(String.valueOf(pref.getInt(context.getString(R.string.most_in_a_month), 0)));
-        mostInOneYear.setText(String.valueOf(pref.getInt(context.getString(R.string.most_in_a_year), 0)));
-        currentWeek.setText(String.valueOf(pref.getInt(context.getString(R.string.week_dream_counter), 0)));
-        currentMonth.setText(String.valueOf(pref.getInt(context.getString(R.string.month_dream_counter), 0)));
-        currentYear.setText(String.valueOf(pref.getInt(context.getString(R.string.year_dream_counter), 0)));
-        test1.setText(String.valueOf(pref.getInt(context.getString(R.string.current_day_counter), 0)));
-        test2.setText(String.valueOf(pref.getInt(context.getString(R.string.week_day_counter), 0)));
+
 
         connectionButton = (ImageButton) view.findViewById(R.id.connectionButton);
         connectionButton.setOnClickListener(new View.OnClickListener() {

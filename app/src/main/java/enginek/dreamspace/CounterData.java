@@ -10,6 +10,8 @@ public class CounterData {
     int monthCounter;
     int yearCounter;
     int id;
+    int weekTracker;
+    int monthTracker;
 
     public CounterData(){
         this.dayCounter = 0;
@@ -17,15 +19,19 @@ public class CounterData {
         this.monthCounter = 0;
         this.yearCounter = 0;
         this.id = 0;
+        this.weekTracker = 0;
+        this.monthTracker = 0;
 
     }
 
-    public CounterData(int id, int dayCounter, int weekCounter, int monthCounter, int yearCounter, int started){
+    public CounterData(int id, int dayCounter, int weekCounter, int monthCounter, int yearCounter, int weekTracker, int monthTracker){
         this.dayCounter = dayCounter;
         this.weekCounter = weekCounter;
         this.monthCounter = monthCounter;
         this.yearCounter = yearCounter;
         this.id = id;
+        this.weekTracker = weekTracker;
+        this.monthTracker = monthTracker;
     }
 
     public void setId(int id) {
@@ -48,6 +54,14 @@ public class CounterData {
         this.yearCounter = yearCounter;
     }
 
+    public void setWeekTracker(int weekTracker) {
+        this.weekTracker = weekTracker;
+    }
+
+    public void setMonthTracker(int monthTracker) {
+        this.monthTracker = monthTracker;
+    }
+
     public int getId() {
         return id;
     }
@@ -68,4 +82,11 @@ public class CounterData {
         return yearCounter;
     }
 
+    public int getWeekTracker() {
+        return weekTracker;
+    }
+
+    public int getMonthTracker() {
+        return monthTracker;
+    }
 }

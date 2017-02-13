@@ -19,11 +19,11 @@ public class AverageData {
 
     }
 
-    public AverageData(int id, int dayCounter, int weekCounter, int monthCounter, int yearCounter, int started){
+    public AverageData(int id, int week, int month, int year){
         this.id = id;
-        this.week = dayCounter;
-        this.month = weekCounter;
-        this.year = monthCounter;
+        this.week = week;
+        this.month = month;
+        this.year = year;
     }
 
     public void setId(int id) {

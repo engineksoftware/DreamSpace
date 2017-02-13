@@ -20,7 +20,7 @@ public class RecordData {
 
     }
 
-    public RecordData(int id, int dayCounter, int weekCounter, int monthCounter, int yearCounter, int started){
+    public RecordData(int id, int dayCounter, int weekCounter, int monthCounter){
         this.weekRecord = dayCounter;
         this.monthRecord = weekCounter;
         this.yearRecord = monthCounter;

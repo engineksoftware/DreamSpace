@@ -30,8 +30,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 
         <receiver
-            android:name=".DateReceiver"
-            android:enabled="true">
+            android:name=".DateReceiver">
 
             <intent-filter>
                 <action android:name="DATE_RECEIVER"/>
@@ -39,8 +38,7 @@
         </receiver>
 
         <receiver
-            android:name=".StartReceiver"
-            android:enabled="true">
+            android:name=".StartReceiver">
 
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

@@ -78,10 +78,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //counters table columns
     private static final String KEY_COUNTERS_ID= "counters_id";
-    private static final String KEY_DAY_COUNTER= "week_current";
-    private static final String KEY_WEEK_COUNTER= "month_current";
-    private static final String KEY_MONTH_COUNTER= "year_current";
+    private static final String KEY_DAY_COUNTER= "day_current";
+    private static final String KEY_WEEK_COUNTER= "week_current";
+    private static final String KEY_MONTH_COUNTER= "month_current";
     private static final String KEY_YEAR_COUNTER= "year_current";
+    private static final String KEY_WEEK_TRACKER= "week_tracker";
+    private static final String KEY_MONTH_TRACKER= "month_tracker";
 
     private static final double SIMILARITY_PERCENTAGE = 65.0;
 
@@ -122,7 +124,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_COUNTERS_TABLE = "CREATE TABLE " + TABLE_COUNTERS + "(" +
                 KEY_COUNTERS_ID + " INTEGER PRIMARY KEY," + KEY_DAY_COUNTER + " INTEGER," +
                 KEY_WEEK_COUNTER + " INTEGER," + KEY_MONTH_COUNTER + " INTEGER," +
-                KEY_YEAR_COUNTER + " INTEGER" + ")";
+                KEY_YEAR_COUNTER + " INTEGER," + KEY_WEEK_TRACKER + " INTEGER," +
+                KEY_MONTH_TRACKER + " INTEGER" + ")";
 
         db.execSQL(CREATE_DREAMS_TABLE);
         db.execSQL(CREATE_CONNECTIONS_TABLE);
@@ -159,6 +162,56 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_DREAMS,null,values);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.AM_PM, Calendar.AM);
+        calendar.add(Calendar.DATE,1);
+        Intent i = new Intent("DATE_RECEIVER");
+        PendingIntent pintent = PendingIntent.getBroadcast(context, 0, i, 0);
+        AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
+        Toast.makeText(context, "Alarm Created", Toast.LENGTH_SHORT).show();
+
+        //Create all of the counters to begin tracking the statistics, and also initializes the current data, record data, and average data.
+        if(getCounterData() == null){
+            CounterData counterData = new CounterData();
+            counterData.setDayCounter(0);
+            counterData.setWeekCounter(0);
+            counterData.setWeekTracker(0);
+            counterData.setMonthTracker(0);
+            counterData.setMonthCounter(0);
+            counterData.setYearCounter(0);
+            addCounterData(counterData);
+
+            CurrentData currentData = new CurrentData();
+            currentData.setWeek(0);
+            currentData.setMonth(0);
+            currentData.setYear(0);
+            addCurrentData(currentData);
+
+            RecordData recordData = new RecordData();
+            recordData.setWeekRecord(0);
+            recordData.setMonthRecord(0);
+            recordData.setYearRecord(0);
+            addRecordData(recordData);
+
+            AverageData averageData = new AverageData();
+            averageData.setWeek(0);
+            averageData.setMonth(0);
+            averageData.setYear(0);
+            addAverageData(averageData);
+        }
+
+        //Adds to the current data
+        CurrentData currentData = getCurrentData();
+        currentData.setWeek(currentData.getWeek() + 1);
+        currentData.setMonth(currentData.getMonth() + 1);
+        currentData.setYear(currentData.getYear() + 1);
+        updateCurrentData(currentData);
+
         compareToOtherDreamsOnSave(getLastAddedDream());
 
     }
@@ -167,7 +220,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_AVERAGES_ID, averageData.getId());
         values.put(KEY_WEEK_AVERAGE, averageData.getWeek());
         values.put(KEY_MONTH_AVERAGE, averageData.getMonth());
         values.put(KEY_YEAR_AVERAGE, averageData.getYear());
@@ -179,7 +231,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_RECORDS_ID, recordData.getId());
         values.put(KEY_WEEK_RECORD, recordData.getWeekRecord());
         values.put(KEY_MONTH_RECORD, recordData.getMonthRecord());
         values.put(KEY_YEAR_RECORD, recordData.getYearRecord());
@@ -191,7 +242,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_CURRENTS_ID, currentData.getId());
         values.put(KEY_WEEK_CURRENT, currentData.getWeek());
         values.put(KEY_MONTH_CURRENT, currentData.getMonth());
         values.put(KEY_YEAR_CURRENT, currentData.getYear());
@@ -203,11 +253,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_COUNTERS_ID, counterData.getId());
         values.put(KEY_DAY_COUNTER, counterData.getDayCounter());
         values.put(KEY_WEEK_COUNTER, counterData.getWeekCounter());
         values.put(KEY_MONTH_COUNTER, counterData.getMonthCounter());
         values.put(KEY_YEAR_COUNTER, counterData.getYearCounter());
+        values.put(KEY_WEEK_TRACKER, counterData.getWeekTracker());
+        values.put(KEY_MONTH_TRACKER, counterData.getMonthTracker());
 
         db.insert(TABLE_COUNTERS,null,values);
     }
@@ -284,92 +335,80 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public AverageData getAverageData(){
-        String selectQuery = "SELECT * FROM " + TABLE_AVERAGES;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        SQLiteDatabase db = this.getReadableDatabase();
 
         AverageData averageData = new AverageData();
 
-        if(cursor.moveToFirst()){
-            do{
-                averageData.setId(cursor.getInt(0));
-                averageData.setWeek(cursor.getInt(1));
-                averageData.setMonth(cursor.getInt(2));
-                averageData.setYear(cursor.getInt(3));
-            }while(cursor.moveToNext());
+        String query = "SELECT * FROM " + TABLE_AVERAGES + " where " + KEY_AVERAGES_ID + " = 1";
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            averageData = new AverageData(Integer.parseInt(cursor.getString(0)),
+                    cursor.getInt(1), cursor.getInt(2), cursor.getInt(3));
+
+        }else{
+            averageData = null;
         }
 
-        cursor.close();
+        return  averageData;
 
-        return averageData;
     }
 
     public RecordData getRecordData(){
-        String selectQuery = "SELECT * FROM " + TABLE_RECORDS;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        SQLiteDatabase db = this.getReadableDatabase();
 
         RecordData recordData = new RecordData();
 
-        if(cursor.moveToFirst()){
-            do{
-                recordData.setId(cursor.getInt(0));
-                recordData.setWeekRecord(cursor.getInt(1));
-                recordData.setMonthRecord(cursor.getInt(2));
-                recordData.setYearRecord(cursor.getInt(3));
-            }while(cursor.moveToNext());
+        String query = "SELECT * FROM " + TABLE_RECORDS + " where " + KEY_RECORDS_ID + " = 1";
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            recordData = new RecordData(Integer.parseInt(cursor.getString(0)),
+                    cursor.getInt(1), cursor.getInt(2), cursor.getInt(3));
+
+        }else{
+            recordData = null;
         }
 
-        cursor.close();
-
-        return recordData;
+        return  recordData;
     }
 
     public CurrentData getCurrentData(){
-        String selectQuery = "SELECT * FROM " + TABLE_CURRENT;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        SQLiteDatabase db = this.getReadableDatabase();
 
         CurrentData currentData = new CurrentData();
 
-        if(cursor.moveToFirst()){
-            do{
-                currentData.setId(cursor.getInt(0));
-                currentData.setWeek(cursor.getInt(1));
-                currentData.setMonth(cursor.getInt(2));
-                currentData.setYear(cursor.getInt(3));
-            }while(cursor.moveToNext());
+        String query = "SELECT * FROM " + TABLE_CURRENT + " where " + KEY_CURRENTS_ID + " = 1";
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            currentData = new CurrentData(Integer.parseInt(cursor.getString(0)),
+                    cursor.getInt(1), cursor.getInt(2), cursor.getInt(3));
+
+        }else{
+            currentData = null;
         }
 
-        cursor.close();
-
-        return currentData;
+        return  currentData;
     }
 
     public CounterData getCounterData(){
-        String selectQuery = "SELECT * FROM " + TABLE_COUNTERS;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        SQLiteDatabase db = this.getReadableDatabase();
 
         CounterData counterData = new CounterData();
 
-        if(cursor.moveToFirst()){
-            do{
-                counterData.setId(cursor.getInt(0));
-                counterData.setDayCounter(cursor.getInt(1));
-                counterData.setWeekCounter(cursor.getInt(2));
-                counterData.setMonthCounter(cursor.getInt(3));
-                counterData.setYearCounter(cursor.getInt(4));
-            }while(cursor.moveToNext());
+        String query = "SELECT * FROM " + TABLE_COUNTERS + " where " + KEY_COUNTERS_ID + " = 1";
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            counterData = new CounterData(Integer.parseInt(cursor.getString(0)),
+                    cursor.getInt(1), cursor.getInt(2), cursor.getInt(3),cursor.getInt(4),cursor.getInt(5),cursor.getInt(6));
+
+        }else{
+            counterData = null;
         }
 
-        cursor.close();
-
-        return counterData;
+        return  counterData;
     }
 
 
@@ -516,6 +555,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_WEEK_COUNTER, counterData.getWeekCounter());
         values.put(KEY_MONTH_COUNTER, counterData.getMonthCounter());
         values.put(KEY_YEAR_COUNTER, counterData.getYearCounter());
+        values.put(KEY_WEEK_TRACKER, counterData.getWeekTracker());
+        values.put(KEY_MONTH_TRACKER, counterData.getMonthTracker());
 
         return db.update(TABLE_COUNTERS, values, KEY_COUNTERS_ID + " = ?",
                 new String[]{ String.valueOf(counterData.getId())});
@@ -528,11 +569,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         removeConnectionsThatContainDreamId(dream.getId()); //Deletes any connections that contain that id.
 
+        //Removes one from the current data
+        CurrentData currentData = getCurrentData();
+        currentData.setWeek(currentData.getWeek() - 1);
+        currentData.setMonth(currentData.getMonth() - 1);
+        currentData.setYear(currentData.getYear() - 1);
+        updateCurrentData(currentData);
+
         if(getDreamCount() == 0){//Checks if all dreams have been deleted.
             Intent intent = new Intent("DATE_RECEIVER");
             PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, 0);
             AlarmManager manager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             manager.cancel(pintent);
+
+            deleteStatisticsData();
         }
 
 
@@ -552,6 +602,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_DREAMS, null, null);
 
         deleteAllConnections();
+        deleteStatisticsData();
 
         Intent intent = new Intent("DATE_RECEIVER");
         PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, 0);
