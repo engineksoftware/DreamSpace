@@ -72,6 +72,9 @@ public class DreamListAdapter extends ArrayAdapter implements Filterable{
         return dreams.size();
     }
 
+    public void removeFromList(int position){
+        dreams.remove(position);
+    }
     public Object getItem(int position){
         return dreams.get(position);
     }

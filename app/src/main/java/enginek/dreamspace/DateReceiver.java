@@ -32,7 +32,7 @@ public class DateReceiver extends BroadcastReceiver {
             //Add to day counter, and then check it.
             counterData.setDayCounter(counterData.getDayCounter()+1);
             //Whens theres a new week.
-            if(counterData.getDayCounter() == 1){
+            if(counterData.getDayCounter() == 6){
                 //Adds to the week tracker and counter
                 counterData.setWeekTracker(counterData.getWeekTracker()+1);
                 counterData.setWeekCounter(counterData.getWeekCounter()+1);
@@ -51,13 +51,6 @@ public class DateReceiver extends BroadcastReceiver {
                 //Resets the current week data, and the day counter
                 currentData.setWeek(0);
                 counterData.setDayCounter(0);
-
-                //Updates the database with the new values.
-                db.updateAveragesData(averageData);
-                db.updateRecordData(recordData);
-                db.updateCurrentData(currentData);
-                db.updateCounterData(counterData);
-
 
             }
 
@@ -83,12 +76,6 @@ public class DateReceiver extends BroadcastReceiver {
 
                 //Resets the current month data
                 currentData.setMonth(0);
-
-                //Updates the database with the new values.
-                db.updateAveragesData(averageData);
-                db.updateRecordData(recordData);
-                db.updateCurrentData(currentData);
-                db.updateCounterData(counterData);
             }
 
             //Whens theres a new year.
@@ -112,13 +99,13 @@ public class DateReceiver extends BroadcastReceiver {
 
                 //Resets the current year data
                 currentData.setYear(0);
-
-                //Updates the database with the new values.
-                db.updateAveragesData(averageData);
-                db.updateRecordData(recordData);
-                db.updateCurrentData(currentData);
-                db.updateCounterData(counterData);
             }
+
+            //Updates the database with the new values.
+            db.updateAveragesData(averageData);
+            db.updateRecordData(recordData);
+            db.updateCurrentData(currentData);
+            db.updateCounterData(counterData);
 
 
 

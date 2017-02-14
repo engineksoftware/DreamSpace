@@ -37,6 +37,9 @@ public class StatisticsFragment extends Fragment {
 
         DatabaseHandler db = new DatabaseHandler(context);
 
+        TextView test = (TextView) view.findViewById(R.id.test);
+
+
         numDreams = (TextView) view.findViewById(R.id.numberOfDreams);
         avgPerWeek = (TextView) view.findViewById(R.id.averagePerWeek);
         avgPerMonth = (TextView) view.findViewById(R.id.averagePerMonth);
@@ -49,6 +52,8 @@ public class StatisticsFragment extends Fragment {
         currentYear = (TextView) view.findViewById(R.id.currentThisYear);
 
         if(db.getAverageData() != null && db.getCurrentData() != null && db.getRecordData() != null && db.getCounterData() != null){
+            test.setText(String.valueOf(db.getCounterData().getDayCounter()));
+
             numDreams.setText(String.valueOf(db.getDreamCount()));
             avgPerWeek.setText(String.valueOf(db.getAverageData().getWeek()));
             avgPerMonth.setText(String.valueOf(db.getAverageData().getMonth()));

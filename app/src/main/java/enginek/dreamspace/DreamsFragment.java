@@ -120,12 +120,14 @@ public class DreamsFragment extends ListFragment {
         deleteS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(deleteDreamList.size() > 0){
-                    int position = deleteDreamList.get(deleteDreamList.size()-1);
 
-                    for (int x = 0; x < deleteDreamList.size(); x++){
-                        db.deleteDream(dbList.get(deleteDreamList.get(x)));
-                        adapter.remove(adapter.getItem(deleteDreamList.get(x)));
+
+                if(deleteDreamList.size() > 0){
+                    while(deleteDreamList.size() != 0){
+                        db.deleteDream(dbList.get(deleteDreamList.get(deleteDreamList.size()-1)));
+                        adapter.remove(adapter.getItem(deleteDreamList.get(deleteDreamList.size()-1)));
+
+                        deleteDreamList.remove(deleteDreamList.size()-1);
 
                     }
 
@@ -133,7 +135,7 @@ public class DreamsFragment extends ListFragment {
                     deleteDreamList.clear();
                     deleteSelected = false;
 
-                    for(int x=position; x < dreamList.size(); x++){
+                    for(int x = 0; x < dreamList.size(); x++){
                         getListView().getChildAt(x).setBackground(context.getDrawable(R.drawable.round_purple_list_item));
                     }
 

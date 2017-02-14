@@ -164,10 +164,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.AM_PM, Calendar.AM);
+        calendar.set(Calendar.AM_PM, calendar.get(Calendar.AM_PM));
         calendar.add(Calendar.DATE,1);
         Intent i = new Intent("DATE_RECEIVER");
         PendingIntent pintent = PendingIntent.getBroadcast(context, 0, i, 0);
