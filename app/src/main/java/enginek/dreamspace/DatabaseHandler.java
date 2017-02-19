@@ -173,7 +173,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         PendingIntent pintent = PendingIntent.getBroadcast(context, 0, i, 0);
         AlarmManager alarm = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
-        Toast.makeText(context, "Alarm Created", Toast.LENGTH_SHORT).show();
 
         //Create all of the counters to begin tracking the statistics, and also initializes the current data, record data, and average data.
         if(getCounterData() == null){
@@ -608,7 +607,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         PendingIntent pintent = PendingIntent.getBroadcast(context, 0, intent, 0);
         AlarmManager manager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pintent);
-        Toast.makeText(context, "Alarm canceled", Toast.LENGTH_SHORT).show();
     }
 
     public void deleteConnection(Connection connection){

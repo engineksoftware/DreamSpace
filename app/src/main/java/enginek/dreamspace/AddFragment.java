@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -23,6 +24,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.formats.NativeAd;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -77,6 +79,7 @@ public class AddFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 
@@ -130,10 +133,10 @@ public class AddFragment extends Fragment {
                     String date = df.format(calendar.getTime());
 
                     //Adds am or pm to time
-                    if(calendar.get(Calendar.AM_PM) == Calendar.AM){
-                        time += "am";
-                    }else{
+                    if(calendar.get(Calendar.HOUR_OF_DAY) == 12 || calendar.get(Calendar.HOUR_OF_DAY) > 12){
                         time += "pm";
+                    }else{
+                        time += "am";
                     }
 
                     //Saves dream to db
